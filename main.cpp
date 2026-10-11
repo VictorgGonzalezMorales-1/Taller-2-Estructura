@@ -4,10 +4,10 @@
 using namespace std;
 
 //Metodo para imprimir rapidamente
-void p(string t) {cout << t << endl;}
+static void p(const string& t) {cout << t << endl;}
 
 //Metodo el cual desplegara el menu a emplear
-void menu() {
+static void menu() {
 
     //Variable para almacenar la respuesta
     string opcion;

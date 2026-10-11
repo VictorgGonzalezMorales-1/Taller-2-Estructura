@@ -1,4 +1,6 @@
 
+#pragma once
+
 #include <string>
 using namespace std;
 
@@ -21,22 +23,22 @@ private:
 public:
 
     //Constructor
-    Paciente(int id, string nombre, int edad, double temperatura, int presionArterial,
-        int dolor, string tipoDolor, bool trauma, bool sintomasNeurologicos, bool requiereCirugia,
+    Paciente(int id, const string& nombre, int edad, double temperatura, int presionArterial,
+        int dolor, const string& tipoDolor, bool trauma, bool sintomasNeurologicos, bool requiereCirugia,
         int diasHospitalizacion);
 
     //Getters
-    int getId();
-    string getNombre();
-    int getEdad();
-    double getTemperatura();
-    int getPresionArterial();
-    int getDolor();
-    string getTipoDolor();
-    bool getTrauma();
-    bool getSintomasNeurologicos();
-    bool getRequiereCirugia();
-    int getDiasHospitalizacion();
+    int getId() const;
+    string getNombre() const;
+    int getEdad() const;
+    double getTemperatura() const;
+    int getPresionArterial() const;
+    int getDolor() const;
+    string getTipoDolor() const;
+    bool getTrauma() const;
+    bool getSintomasNeurologicos() const;
+    bool getRequiereCirugia() const;
+    int getDiasHospitalizacion() const;
 
     //Destructor
     ~Paciente();

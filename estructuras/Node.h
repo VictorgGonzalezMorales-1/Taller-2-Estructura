@@ -27,5 +27,5 @@ public:
     void setValue(T value){this->value = value;}
     void setNext(Node<T>* next){this->next = next;}
 
-    ~Node(){} //Destructor
+    ~Node() = default; //Destructor
 };
