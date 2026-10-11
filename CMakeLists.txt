@@ -3,9 +3,11 @@ project(Taller-2-Estructura)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(Taller_1
+add_executable(Taller-2-Estructura
         main.cpp
         estructuras/Node.h
         estructuras/List.h
         estructuras/Queue.h
-        estructuras/Stack.h)
+        estructuras/Stack.h
+        dominio/Paciente.cpp
+        dominio/Paciente.h)
