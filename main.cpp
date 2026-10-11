@@ -1,10 +1,34 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
 using namespace std;
 
 //Metodo para imprimir rapidamente
 static void p(const string& t) {cout << t << endl;}
+
+//Metodo para leer el archivo
+static bool read() {
+
+    //Cargar el archivo
+    ifstream archivo("Pacientes.txt");
+
+    //Si el archivo no está termina la lectura y no permite abrir el menu
+    if (!archivo.is_open()) {
+        p("No se puede cargar el archivo");
+        return false;
+    }
+
+    //Variable para almacenar la linea
+    string linea;
+
+    //Bucle para leer las líneas del archivo
+    while (getline(archivo, linea)) {
+
+    }
+
+    return true;
+}
 
 //Metodo el cual desplegara el menu a emplear
 static void menu() {
@@ -40,7 +64,10 @@ static void menu() {
 
 int main() {
 
-    menu();
+    //Si la lectura se concreta se habilita el menu
+    if (read()) {
+        menu();
+    }
 
     return 0;
 }
