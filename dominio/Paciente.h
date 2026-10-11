@@ -6,7 +6,7 @@ class Paciente {
 
 // Atributos
 private:
-    string id;
+    int id;
     string nombre;
     int edad;
     double temperatura;
@@ -21,12 +21,12 @@ private:
 public:
 
     //Constructor
-    Paciente(string id, string nombre, int edad, double temperatura, int presionArterial,
+    Paciente(int id, string nombre, int edad, double temperatura, int presionArterial,
         int dolor, string tipoDolor, bool trauma, bool sintomasNeurologicos, bool requiereCirugia,
         int diasHospitalizacion);
 
     //Getters
-    string getId();
+    int getId();
     string getNombre();
     int getEdad();
     double getTemperatura();

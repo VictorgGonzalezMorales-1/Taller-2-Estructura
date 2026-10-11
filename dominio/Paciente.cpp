@@ -2,7 +2,7 @@
 #include "Paciente.h"
 
 //Constructor
-Paciente :: Paciente(string id, string nombre, int edad, double temperatura, int presionArterial,
+Paciente :: Paciente(int id, string nombre, int edad, double temperatura, int presionArterial,
         int dolor, string tipoDolor, bool trauma, bool sintomasNeurologicos, bool requiereCirugia,
         int diasHospitalizacion) {
 
@@ -20,7 +20,7 @@ Paciente :: Paciente(string id, string nombre, int edad, double temperatura, int
 }
 
 //Getters
-string Paciente :: getId() {return this->id;}
+int Paciente :: getId() {return this->id;}
 string Paciente :: getNombre(){return this->nombre;}
 int Paciente :: getEdad(){return this->edad;}
 double Paciente :: getTemperatura(){return this->temperatura;}
