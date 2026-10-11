@@ -10,4 +10,6 @@ add_executable(Taller-2-Estructura
         estructuras/Queue.h
         estructuras/Stack.h
         dominio/Paciente.cpp
-        dominio/Paciente.h)
+        dominio/Paciente.h
+        logica/Sistema.cpp
+        logica/Sistema.h)
