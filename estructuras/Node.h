@@ -5,12 +5,12 @@ template <class T> //Para usar genéricos
 
 class Node {
 
-    //Atributos de la clase
+//Atributos de la clase
 private:
     T value;
     Node<T>* next;
 
-    //Métodos
+//Métodos
 public:
 
     //Constructor

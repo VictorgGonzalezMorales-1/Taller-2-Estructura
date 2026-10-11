@@ -1,0 +1,8 @@
+001;Juan Perez;25;37.0;120;3;otro;0;0;0;0
+002;Maria Cuevas;8;36.5;110;2;otro;0;0;0;0
+003;Carlos Tosso;42;36.6;130;7;pecho;0;0;0;0
+004;Ana Sanhueza;31;38.9;115;9;abdomen;0;0;0;0
+005;Diego Morales;19;36.2;122;5;cabeza;0;1;0;0
+006;Jose Astudillo;50;36.7;140;6;extremidad;1;1;1;0
+007;Lucas Vergara;28;36.4;125;4;extremidad;1;0;0;0
+008;Elena Espinoza;65;37.2;135;2;otro;0;0;0;4
