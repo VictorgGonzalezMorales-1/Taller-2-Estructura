@@ -171,6 +171,101 @@ NodeArbol<string>* Sistema :: crearArbolDesicion() {
 
 }
 
+//Metodo generado para que segun el paciente que se le entregue este defina
+//a que sector será enviado
+string Sistema :: definirServicio(Paciente* paciente, NodeArbol<string>* nodoActual) {
+
+    try {
+
+        //Solicitar la pregunta del nodo
+        string pregunta = nodoActual->getPregunta();
+
+        //Si no hay pregunta quiere decir que llegamos al nodo que entrega el servicio
+        if (pregunta == "") {
+            return nodoActual->getValue();
+        }
+
+        //Direccionamiento en caso de la pregunta Sintomas Neurológicos
+        if (pregunta == "Sintomas Neurologicos") {
+
+            if (paciente->getSintomasNeurologicos() == true) {
+                return definirServicio(paciente, nodoActual->getIzquierdo());
+            }
+            return definirServicio(paciente, nodoActual->getDerecho());
+        }
+
+        //Direccionamiento en caso de la pregunta Presión Arterial
+        if (pregunta == "Presión Arterial") {
+
+            if (paciente->getPresionArterial() >= 80  && paciente->getPresionArterial() <= 120) {
+                return definirServicio(paciente, nodoActual->getIzquierdo());
+            }
+            return definirServicio(paciente, nodoActual->getDerecho());
+        }
+
+        //Direccionamiento en caso de la pregunta Dolor
+        if (pregunta == "Dolor") {
+
+            if (paciente->getDolor() < 5) {
+                return definirServicio(paciente, nodoActual->getIzquierdo());
+            }
+            return definirServicio(paciente, nodoActual->getDerecho());
+        }
+
+        //Direccionamiento en caso de la pregunta Temperatura
+        if (pregunta == "Temperatura") {
+
+            if (paciente->getTemperatura() >= 36 && paciente->getTemperatura() <= 38) {
+                return definirServicio(paciente, nodoActual->getIzquierdo());
+            }
+            return definirServicio(paciente, nodoActual->getDerecho());
+        }
+
+        //Direccionamiento en caso de la pregunta Trauma
+        if (pregunta == "Trauma") {
+
+            if (paciente->getTrauma() == true) {
+                return definirServicio(paciente, nodoActual->getIzquierdo());
+            }
+            return definirServicio(paciente, nodoActual->getDerecho());
+        }
+
+        //Direccionamiento en caso de la pregunta Edad
+        if (pregunta == "Edad") {
+
+            if (paciente->getEdad() < 15) {
+                return definirServicio(paciente, nodoActual->getIzquierdo());
+            }
+            return definirServicio(paciente, nodoActual->getDerecho());
+        }
+
+        //Direccionamiento en caso de la pregunta Requiere Cirugia
+        if (pregunta == "Requiere Cirugia") {
+
+            if (paciente->getRequiereCirugia() == true) {
+                return definirServicio(paciente, nodoActual->getIzquierdo());
+            }
+            return definirServicio(paciente, nodoActual->getDerecho());
+        }
+
+        //Direccionamiento en caso de la pregunta Tipo De Dolor
+        if (pregunta == "Tipo De Dolor") {
+
+            if (paciente->getTipoDolor() != "otro") {
+                return definirServicio(paciente, nodoActual->getIzquierdo());
+            }
+            return definirServicio(paciente, nodoActual->getDerecho());
+        }
+
+    }catch (...) {
+        //Si no se logra conseguir un servicio el cual lo pueda atender de buena manera
+        //se envia a Medicina General de Defaul
+        return "Medicina General";
+    }
+
+    return "Medicina General";
+}
+
 //Destructor
 Sistema::~Sistema() {
     delete this->colaPacientes;
