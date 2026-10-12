@@ -40,6 +40,9 @@ public:
     bool getRequiereCirugia() const;
     int getDiasHospitalizacion() const;
 
+    //Métodos
+    string toString() const;
+
     //Destructor
     ~Paciente();
 

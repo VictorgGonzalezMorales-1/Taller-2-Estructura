@@ -32,6 +32,38 @@ bool Paciente :: getSintomasNeurologicos() const {return this->sintomasNeurologi
 bool Paciente :: getRequiereCirugia() const {return this->requiereCirugia;}
 int Paciente :: getDiasHospitalizacion() const {return this->diasHospitalizacion;}
 
-//Destructor
+//Métodos
+string Paciente :: toString() const {
 
-Paciente :: ~Paciente() = default;
+        string trauma = "";
+        string sintomasNeurologicos = "";
+        string requiereCirugia = "";
+
+        if (this->trauma == true)
+                trauma = "1";
+        else
+                trauma = "0";
+
+        if (this->sintomasNeurologicos == true)
+                sintomasNeurologicos = "1";
+        else
+                sintomasNeurologicos = "0";
+
+        if (this->requiereCirugia == true)
+                requiereCirugia = "1";
+        else
+                requiereCirugia = "0";
+
+        string t = "ID: " + to_string(this->id) +
+                "\nNombre: " + this->nombre +
+                "\nEdad: " + to_string(this->edad) +
+                        "\nTemperatura: " + to_string(this->temperatura) +
+                                "\nDolor: " + to_string(this->dolor) +
+                                        "\nTipoDolor: " + this->tipoDolor +
+                                                "\nTrauma: " + trauma +
+                                                        "\nSintomasNeurologicos: " + sintomasNeurologicos +
+                                                                "\nRequiereCirugia: " + requiereCirugia +
+                                                                        "\nDiasHospitalizacion: " + to_string(this->diasHospitalizacion);
+
+        return t;
+}

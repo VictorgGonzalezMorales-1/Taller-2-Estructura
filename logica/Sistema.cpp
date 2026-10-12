@@ -81,6 +81,7 @@ void Sistema :: crearPaciente(const string& linea) {
 
         //Almacenar al paciente creado en la cola
         guardarPacienteEnCola(paciente);
+
         delete d;
 
     }catch (...) {

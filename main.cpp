@@ -2,7 +2,11 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include "logica/Sistema.h"
 using namespace std;
+
+//Importar el sistema de Manera global
+Sistema* S = new Sistema();
 
 //Metodo para imprimir rapidamente
 static void p(const string& t) {cout << t << endl;}
@@ -11,7 +15,7 @@ static void p(const string& t) {cout << t << endl;}
 static bool read() {
 
     //Cargar el archivo
-    ifstream archivo("Pacientes.txt");
+    ifstream archivo("../Pacientes.txt");
 
     //Si el archivo no está termina la lectura y no permite abrir el menu
     if (!archivo.is_open()) {
@@ -24,8 +28,11 @@ static bool read() {
 
     //Bucle para leer las líneas del archivo
     while (getline(archivo, linea)) {
-
+        S->crearPaciente(linea);
     }
+
+    //Cerrar el archivo
+    archivo.close();
 
     return true;
 }
@@ -68,6 +75,9 @@ int main() {
     if (read()) {
         menu();
     }
+
+    //Eliminar el sistema
+    delete S;
 
     return 0;
 }
