@@ -27,7 +27,8 @@ public:
     void crearPaciente(const string& linea);
     void guardarPacienteEnCola(Paciente* paciente);
     NodeArbol<string>* crearArbolDesicion();
-    string definirServicio(Paciente* paciente, NodeArbol<string>* nodoActual);
+    string definirServicio(Paciente* paciente, NodeArbol<string>* nodoActual, string texto);
+    string atenderPacientes(int n);
 
     //Destructor
     ~Sistema();

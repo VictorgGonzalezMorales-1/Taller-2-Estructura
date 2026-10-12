@@ -7,7 +7,7 @@
 using namespace std;
 
 //Importar el sistema de Manera global
-Sistema* S = new Sistema();
+static Sistema* S = new Sistema();
 
 //Metodo para imprimir rapidamente
 static void p(const string& t) {cout << t << endl;}
@@ -38,6 +38,34 @@ static bool read() {
     return true;
 }
 
+//Metodo para desarrollar la opcion 1 del menu
+//incompleto
+static void opcion1() {
+
+    try {
+
+        //Solicitar los datos
+        string respuesta = "";
+        p("Entregue la cantidad de pacientes que desee antender: ");
+
+        cin >> respuesta;
+
+        int numero = stoi(respuesta);
+
+        //Revisar que sean datos válidos
+        if (numero > 0) {
+            p(S->atenderPacientes(numero));
+        }
+        else {
+            p("Ingrese un numero mayor que 0 ....\n");
+        }
+
+    }
+    catch (...) {
+        p("Datos invalidos....\n");
+    }
+}
+
 //Metodo el cual desplegara el menu a emplear
 static void menu() {
 
@@ -60,7 +88,7 @@ static void menu() {
         cin >> opcion;
 
         //Reaccionar segun la opcion dada
-       if (opcion == "1"){p("1\n");}
+       if (opcion == "1"){opcion1();}
        else if (opcion == "2"){p("2\n");}
        else if (opcion == "3"){p("3\n");}
        else if (opcion == "4"){p("saliendo....\n");}

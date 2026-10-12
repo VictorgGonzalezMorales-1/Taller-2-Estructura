@@ -173,7 +173,7 @@ NodeArbol<string>* Sistema :: crearArbolDesicion() {
 
 //Metodo generado para que segun el paciente que se le entregue este defina
 //a que sector será enviado
-string Sistema :: definirServicio(Paciente* paciente, NodeArbol<string>* nodoActual) {
+string Sistema :: definirServicio(Paciente* paciente, NodeArbol<string>* nodoActual, string texto) {
 
     try {
 
@@ -182,88 +182,144 @@ string Sistema :: definirServicio(Paciente* paciente, NodeArbol<string>* nodoAct
 
         //Si no hay pregunta quiere decir que llegamos al nodo que entrega el servicio
         if (pregunta == "") {
-            return nodoActual->getValue();
+
+            //Acá irá el metodo para guardarlo en le AVL
+
+            texto += "\n\nServicio asignado: " + nodoActual->getValue() + "\n\n";
+            return texto;
         }
 
         //Direccionamiento en caso de la pregunta Sintomas Neurológicos
         if (pregunta == "Sintomas Neurologicos") {
 
             if (paciente->getSintomasNeurologicos() == true) {
-                return definirServicio(paciente, nodoActual->getIzquierdo());
+                texto+= "Sintomas Neurologicos = Si-> ";
+                return definirServicio(paciente, nodoActual->getIzquierdo(), texto);
             }
-            return definirServicio(paciente, nodoActual->getDerecho());
+            texto+= "Sintomas Neurologicos = No-> ";
+            return definirServicio(paciente, nodoActual->getDerecho(), texto);
         }
 
         //Direccionamiento en caso de la pregunta Presión Arterial
         if (pregunta == "Presión Arterial") {
 
             if (paciente->getPresionArterial() >= 80  && paciente->getPresionArterial() <= 120) {
-                return definirServicio(paciente, nodoActual->getIzquierdo());
+                texto+= "Presión Arterial = Normal-> ";
+                return definirServicio(paciente, nodoActual->getIzquierdo(), texto);
             }
-            return definirServicio(paciente, nodoActual->getDerecho());
+            texto+= "Presión Arterial = Anormal";
+            return definirServicio(paciente, nodoActual->getDerecho(), texto);
         }
 
         //Direccionamiento en caso de la pregunta Dolor
         if (pregunta == "Dolor") {
 
             if (paciente->getDolor() < 5) {
-                return definirServicio(paciente, nodoActual->getIzquierdo());
+                texto+= "Dolor < 5";
+                return definirServicio(paciente, nodoActual->getIzquierdo(), texto);
             }
-            return definirServicio(paciente, nodoActual->getDerecho());
+            texto+= "Dolor >= 5-> ";
+            return definirServicio(paciente, nodoActual->getDerecho(), texto);
         }
 
         //Direccionamiento en caso de la pregunta Temperatura
         if (pregunta == "Temperatura") {
 
             if (paciente->getTemperatura() >= 36 && paciente->getTemperatura() <= 38) {
-                return definirServicio(paciente, nodoActual->getIzquierdo());
+                texto+= "Temperatura = Normal-> ";
+                return definirServicio(paciente, nodoActual->getIzquierdo(), texto);
             }
-            return definirServicio(paciente, nodoActual->getDerecho());
+            texto+= "Temperatura = Anormal";
+            return definirServicio(paciente, nodoActual->getDerecho(), texto);
         }
 
         //Direccionamiento en caso de la pregunta Trauma
         if (pregunta == "Trauma") {
 
             if (paciente->getTrauma() == true) {
-                return definirServicio(paciente, nodoActual->getIzquierdo());
+                texto+= "Trauma = Si-> ";
+                return definirServicio(paciente, nodoActual->getIzquierdo(), texto);
             }
-            return definirServicio(paciente, nodoActual->getDerecho());
+            texto+= "Trauma = No-> ";
+            return definirServicio(paciente, nodoActual->getDerecho(), texto);
         }
 
         //Direccionamiento en caso de la pregunta Edad
         if (pregunta == "Edad") {
 
             if (paciente->getEdad() < 15) {
-                return definirServicio(paciente, nodoActual->getIzquierdo());
+                texto+= "Edad < 15";
+                return definirServicio(paciente, nodoActual->getIzquierdo(), texto);
             }
-            return definirServicio(paciente, nodoActual->getDerecho());
+            texto+= "Edad >= 15";
+            return definirServicio(paciente, nodoActual->getDerecho(), texto);
         }
 
         //Direccionamiento en caso de la pregunta Requiere Cirugia
         if (pregunta == "Requiere Cirugia") {
 
             if (paciente->getRequiereCirugia() == true) {
-                return definirServicio(paciente, nodoActual->getIzquierdo());
+                texto+= "Requiere Cirugia = Si";
+                return definirServicio(paciente, nodoActual->getIzquierdo(), texto);
             }
-            return definirServicio(paciente, nodoActual->getDerecho());
+            texto+= "Requiere Cirugia = No";
+            return definirServicio(paciente, nodoActual->getDerecho(), texto);
         }
 
         //Direccionamiento en caso de la pregunta Tipo De Dolor
         if (pregunta == "Tipo De Dolor") {
 
             if (paciente->getTipoDolor() != "otro") {
-                return definirServicio(paciente, nodoActual->getIzquierdo());
+                texto+= "Tipo De Dolor = Otro";
+                return definirServicio(paciente, nodoActual->getIzquierdo(), texto);
             }
-            return definirServicio(paciente, nodoActual->getDerecho());
+            texto+= "Tipo De Dolor = " + paciente->getTipoDolor();
+            return definirServicio(paciente, nodoActual->getDerecho(), texto);
         }
 
     }catch (...) {
         //Si no se logra conseguir un servicio el cual lo pueda atender de buena manera
         //se envia a Medicina General de Defaul
-        return "Medicina General";
+        texto = "Datos inconsistentes \n\nServicio asignado: Medicina General";
+        return texto;
     }
 
-    return "Medicina General";
+    texto = "Datos inconsistentes \n\nServicio asignado: Medicina General";
+    return texto;
+}
+
+//Metodo generado para atender a los n pacientes solicitados
+//Incompleto
+string Sistema :: atenderPacientes(int n) {
+
+    //Si no hay pacientes termina
+    if (this->colaPacientes->isEmpty()) {
+        return "No hay pacientes en la cola";
+    }
+
+    //Si se piden más pacientes de los que hay solo se procesas los maximos que hay
+    if (n > this->colaPacientes->size()) {
+        n = this->colaPacientes->size();
+    }
+
+    //Procesar los datos
+    string texto = "\n=== ATENDIENDO PACIENTES ===\n\n";
+
+    for (int a = 0; a < n; a++) {
+
+        texto += "-----------------------------------------\n";
+        texto+= colaPacientes->front()->toString() + "\n\n";
+
+        string resultado = definirServicio(colaPacientes->front(), this->arbolDeDesicion, "");
+        texto += "Ruta: " + resultado + "\n";
+
+        colaPacientes->pop();
+
+    }
+
+    texto += "-----------------------------------------\n";
+    return texto;
+
 }
 
 //Destructor
