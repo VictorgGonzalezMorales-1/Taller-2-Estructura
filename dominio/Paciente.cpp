@@ -58,6 +58,7 @@ string Paciente :: toString() const {
                 "\nNombre: " + this->nombre +
                 "\nEdad: " + to_string(this->edad) +
                         "\nTemperatura: " + to_string(this->temperatura) +
+                                "\nPresión: " + to_string(this->presionArterial) +
                                 "\nDolor: " + to_string(this->dolor) +
                                         "\nTipoDolor: " + this->tipoDolor +
                                                 "\nTrauma: " + trauma +

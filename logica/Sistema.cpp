@@ -1,5 +1,6 @@
 
 #include "Sistema.h"
+#include <iostream>
 
 //Constructor
 Sistema :: Sistema() {
@@ -81,6 +82,9 @@ void Sistema :: crearPaciente(const string& linea) {
 
         //Almacenar al paciente creado en la cola
         guardarPacienteEnCola(paciente);
+
+        //Imprimir para revisar
+        cout << paciente->toString() + "\n" << endl;
 
         delete d;
 
