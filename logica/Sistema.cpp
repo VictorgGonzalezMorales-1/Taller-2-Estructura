@@ -4,6 +4,7 @@
 //Constructor
 Sistema :: Sistema() {
     this->colaPacientes = new Queue<Paciente*>();
+    this->arbolDeDesicion = crearArbolDesicion();
 };
 
 List<string>* Sistema :: split(const string& t, char separador) {
@@ -98,7 +99,80 @@ void Sistema :: guardarPacienteEnCola(Paciente* paciente) {
 
 }
 
+//Metodo el cual generara un arbol de decisión para cada paciente con el cual se podra
+//definir a que servicio se debe enviar
+NodeArbol<string>* Sistema :: crearArbolDesicion() {
+
+    //Ramas del arbol
+    NodeArbol<string>* urgencias = new NodeArbol<string>("Urgencias");
+    NodeArbol<string>* medicinaGeneral = new NodeArbol<string>("Medicina General");
+    NodeArbol<string>* cardiología = new NodeArbol<string>("Cardiología");
+    NodeArbol<string>* neurología = new NodeArbol<string>("Neurología");
+    NodeArbol<string>* traumatología = new NodeArbol<string>("Traumatología");
+    NodeArbol<string>* cirugía = new NodeArbol<string>("Cirugía");
+    NodeArbol<string>* pediatría = new NodeArbol<string>("Pediatría");
+    NodeArbol<string>* hospitalización = new NodeArbol<string>("Hospitalización");
+
+    //Conecciones entre las ramas y preguntas de la izquierda
+
+    //Conección de la pregunta edad
+    NodeArbol<string>* edad = new NodeArbol<string>("");
+    edad->setPregunta("Edad");
+    edad->setIzquierda(pediatría);  //Menor que 15
+    edad->setDerecha(neurología);   //Mayor o igual que 15
+
+    //Conección de la pregunta Temperatura
+    NodeArbol<string>* temperatura = new NodeArbol<string>("");
+    temperatura->setPregunta("Temperatura");
+    temperatura->setIzquierda(edad);   //Entre 36 y 38
+    temperatura->setDerecha(urgencias);    //Menor que 36 y Mayor que 38
+
+    //Conección de la pregunta Presión Arterial
+    NodeArbol<string>* presionArterial = new NodeArbol<string>("");
+    presionArterial->setPregunta("Presión Arterial");
+    presionArterial->setIzquierda(temperatura);   //Entre 80 y 120
+    presionArterial->setDerecha(cardiología);   // Meno que 80 y mayor que 120
+
+    //Conecciones entre las ramas y preguntas de la derecha
+
+    //Conección de la pregunta Requiere Cirujía
+    NodeArbol<string>* requiereCirugia = new NodeArbol<string>("");
+    requiereCirugia->setPregunta("Requiere Cirugia");
+    requiereCirugia->setIzquierda(cirugía);  //Si
+    requiereCirugia->setDerecha(traumatología);  //No
+
+    //Conección de la pregunta Tipo de Dolor
+    NodeArbol<string>* tipoDeDolor = new NodeArbol<string>("");
+    tipoDeDolor->setPregunta("Tipo De Dolor");
+    tipoDeDolor->setIzquierda(hospitalización);  // pecho, cabeza, abdomen, extremidad
+    tipoDeDolor->setDerecha(urgencias);  //Otro
+
+    //Conección de la pregunta trauma
+    NodeArbol<string>* trauma = new NodeArbol<string>("");
+    trauma->setPregunta("Trauma");
+    trauma->setIzquierda(requiereCirugia);  //Si
+    trauma->setDerecha(tipoDeDolor);
+
+    //Conección de la pregunta dolor
+    NodeArbol<string>* dolor = new NodeArbol<string>("");
+    dolor->setPregunta("Dolor");
+    dolor->setIzquierda(medicinaGeneral);  // Menor que 5
+    dolor->setDerecha(trauma); // Mayor o igual que 5
+
+    //Conección izquieda y derecha con la raíz
+
+    //Conección de la pregunta Sintomas Neurológicos
+    NodeArbol<string>* sintomasNeurologicos = new NodeArbol<string>("");
+    sintomasNeurologicos->setPregunta("Sintomas Neurologicos");
+    sintomasNeurologicos->setIzquierda(presionArterial);  //Si
+    sintomasNeurologicos->setDerecha(dolor);  //No
+
+    return sintomasNeurologicos;
+
+}
+
 //Destructor
 Sistema::~Sistema() {
     delete this->colaPacientes;
+    delete this->arbolDeDesicion;
 }
