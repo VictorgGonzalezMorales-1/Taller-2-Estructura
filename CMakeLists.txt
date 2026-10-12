@@ -12,4 +12,5 @@ add_executable(Taller-2-Estructura
         dominio/Paciente.cpp
         dominio/Paciente.h
         logica/Sistema.cpp
-        logica/Sistema.h)
+        logica/Sistema.h
+        estructuras/NodeArbol.h)

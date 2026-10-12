@@ -25,7 +25,6 @@ public:
     void crearPaciente(const string& linea);
     void guardarPacienteEnCola(Paciente* paciente);
 
-
     //Destructor
     ~Sistema();
 
