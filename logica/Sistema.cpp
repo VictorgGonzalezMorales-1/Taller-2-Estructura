@@ -5,6 +5,7 @@
 Sistema :: Sistema() {
     this->colaPacientes = new Queue<Paciente*>();
     this->arbolDeDesicion = crearArbolDesicion();
+    this->idPacientes = new List<string>();
 };
 
 List<string>* Sistema :: split(const string& t, char separador) {
@@ -76,12 +77,26 @@ void Sistema :: crearPaciente(const string& linea) {
         if (d->get(9) == "1") {requiereCirugia = true;}
         else if (d->get(9) == "0"){requiereCirugia = false;}
 
+        //Revisar que el nuevo paciente no repita el ID de otro
+        for (int a = 0; a < this->idPacientes->getSize(); a++) {
+
+            //Si encuentra una id igual termina y no guarda el paciente
+            if (this->idPacientes->get(a) == d->get(0)) {
+                delete d;
+                return;
+            }
+
+        }
+
         //Crear al paciente
         Paciente* paciente= new Paciente(id, nombre, edad, temperatura, presionArterial,
             dolor, tipoDolor, trauma, sintomasNeurologicos, requiereCirugia, diasHospitalizacion);
 
         //Almacenar al paciente creado en la cola
         guardarPacienteEnCola(paciente);
+
+        //Almacenar el id del paciente en la lista
+        idPacientes->insertLast(d->get(0));
 
         delete d;
 

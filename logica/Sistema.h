@@ -15,6 +15,7 @@ class Sistema {
 private:
     Queue<Paciente*>* colaPacientes;
     NodeArbol<string>* arbolDeDesicion;
+    List<string>* idPacientes;
 
 public:
 
