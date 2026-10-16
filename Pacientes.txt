@@ -1,8 +1,30 @@
-001;Juan Perez;25;37.0;120;3;otro;0;0;0;0
-002;Maria Cuevas;8;36.5;110;2;otro;0;0;0;0
-003;Carlos Tosso;42;36.6;130;7;pecho;0;0;0;0
-004;Ana Sanhueza;31;38.9;115;9;abdomen;0;0;0;0
-005;Diego Morales;19;36.2;122;5;cabeza;0;1;0;0
-006;Jose Astudillo;50;36.7;140;6;extremidad;1;1;1;0
-007;Lucas Vergara;28;36.4;125;4;extremidad;1;0;0;0
-008;Elena Espinoza;65;37.2;135;2;otro;0;0;0;4
+001;Damian Valdivia;25;37.0;115;3;otro;0;0;0;0
+002;Joaquin Torres;14;37.2;100;2;cabeza;0;1;0;0
+003;sutrostia;30;37.5;130;4;otro;0;1;0;2
+004;lincopablo;45;36.5;110;8;pecho;1;0;1;5
+005;Nicolas Diaz;19;39.5;115;6;cabeza;0;1;0;1
+006;Andy Alfaro;28;36.8;95;7;abdomen;1;0;0;0
+007;Elena Espinoza;62;37.0;105;5;cabeza;0;1;0;4
+008;Carlos Mendoza;10;36.6;110;4;otro;0;1;0;0
+009;Patricia Araya;55;36.2;145;3;pecho;0;1;0;3
+010;Tomas Irarrázaval;34;37.1;112;9;pecho;0;0;0;6
+011;Matias Toledo;22;36.7;118;2;extremidad;0;0;0;0
+012;Sofia Flores;8;37.3;90;1;abdomen;0;1;0;0
+013;Gaspar Burgos;50;36.4;120;9;abdomen;1;0;1;7
+014;Valentina Silva;27;37.2;100;7;extremidad;1;0;0;0
+015;Lucas San Martin;41;36.9;115;6;pecho;0;0;0;5
+016;Camila Soto;12;36.5;92;3;otro;0;1;0;0
+017;Benjamín Vera;67;37.4;102;8;cabeza;0;1;0;12
+018;Renata Olivares;38;36.8;110;9;cabeza;0;0;0;1
+019;Martin Carrasco;29;38.8;108;4;otro;0;1;0;2
+020;Florencia Muñoz;24;37.0;115;7;abdomen;1;0;0;0
+021;Daniela Reyes;52;36.6;150;5;otro;0;1;0;4
+022;Vicente Castro;33;37.1;113;2;pecho;0;0;0;0
+023;Isidora Peña;45;36.7;114;6;extremidad;0;0;0;3
+024;Alonso Herrera;58;36.9;116;8;extremidad;1;0;1;10
+025;Bastian Zamora;19;36.4;110;8;pecho;0;0;0;0
+026;Felipe Malhecho;25;37.0;115;-3;otro;0;0;0;0
+027;Fuga Memoria;EdadLetras;37.2;100;5;cabeza;0;1;0;0
+028;Error Booleano;30;37.5;110;6;abdomen;2;0;0;0
+029;DolorInvalido;40;36.8;120;15;pecho;0;0;0;2
+030;CamposFaltantes;35;36.5;110
