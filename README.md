@@ -1,20 +1,19 @@
 
 # Taller 2 - Estructura de Datos
----
+
 ## Integrante
----
 
 | Nombre                         | RUT          | GitHub                   | Carrera |
 | ------------------------------ | ------------ | ------------------------ | ------- |
 | Victor Manuel González Morales | 22.061.552-9 | VictorgGonzalezMorales-1 |  ICI    |
 ## Descripción
----
+
 Este proyecto es la **continuación y extensión del Taller 1 de Estructura de Datos**.
 
 Consiste en un **sistema automatizado de gestión hospitalaria** en C++ que recibe un flujo de pacientes desde un archivo de texto utilizando una **cola manual**, los **clasifica dinámicamente mediante un árbol de decisión clínico**, y finalmente **almacena las fichas en árboles AVL** balanceados por cada departamento médico **para optimizar los tiempos de búsqueda y atención**.
 
 ## Estructuras Utilizadas
----
+
 El sistema utiliza las siguientes estructuras:
 
 - **Nodo (Node):** Clase genérica utilizada como elemento fundamental para construir las estructuras enlazadas. Cada nodo almacena un dato y un puntero hacia el siguiente nodo.
@@ -27,7 +26,7 @@ El sistema utiliza las siguientes estructuras:
 
 *Rellenar*
 ## Estructura del Proyecto
----
+
 
 ```text
 Taller-2-Estructura/
@@ -57,7 +56,6 @@ Taller-2-Estructura/
 
 *Rellenar*
 ## Archivo de Pacientes
----
 
 Cada línea del archivo representa una ficha médica y debe contener los siguientes **atributos en orden estricto**, separados por punto y coma (`;`):
 
@@ -85,7 +83,6 @@ ID;Nombre;Edad;Temperatura;PresionArterial;Dolor;TipoDolor;Trauma;SintomasNeurol
 ```
 
 ## Robustez y Validaciones de la lectura de archivo
----
 
 El módulo de carga de datos en `Sistema.cpp` somete a cada línea del archivo `Pacientes.txt` a un **estricto proceso de filtrado y control de calidad antes de ingresarlo a la cola de espera, garantizando la estabilidad de la memoria y previniendo caídas del programa**:
 
@@ -109,7 +106,6 @@ El módulo de carga de datos en `Sistema.cpp` somete a cada línea del archivo `
 * **Estrategia de Rescate ante Fichas Corruptas:** Si una línea supera las pruebas de formato pero contiene un dato clínico fuera de rango o corrupto, el motor sistema no detiene el programa; en su lugar, captura el caso límite y asigna al paciente de forma segura al servicio general por defecto (**Medicina General**) para garantizar su atención y proteger el flujo del software.
 
 ## Definición del servicio del Paciente
----
 
 ![Diagrama del Árbol de Decisión](documentos/Arbol_de_Decision_Tipo_de_Servicio.png)
 
@@ -130,7 +126,6 @@ El módulo de carga de datos en `Sistema.cpp` somete a cada línea del archivo `
 5. **Tipo de Dolor Clínico:** Si el dolor es severo pero no proviene de un trauma externo, las localizaciones anatómicas clave ("pecho", "cabeza", "abdomen", "extremidad") ameritan un monitoreo controlado en cama (Hospitalización), mientras que dolores no catalogados u "otros" ingresan a observación en Urgencias.
 
 ## Instrucciones de Compilación y Ejecución
----
 
 El proyecto está diseñado y garantizado para compilar en un entorno **GitHub Codespace** utilizando CMake y GCC.
 
@@ -166,11 +161,10 @@ Si prefieres ejecutar los comandos de forma manual y secuencial:
    ```
 
 ## Ejecución y Flujo del Sistema
----
 
 *Rellenar*
 ## Servicios disponibles
----
+
 El **Hospital Marmaja** considera los siguientes servicios:
 
 1. Urgencias
@@ -183,7 +177,7 @@ El **Hospital Marmaja** considera los siguientes servicios:
 8. Hospitalizacion
 
 ## Organización del código
----
+
 El proyecto se encuentra dividido en diferentes módulos:
 
 * **`documentos/`** : Contiene los diagramas y material complementario del diseño clínico, como el archivo `Arbol_de_Decision_Tipo_de_Servicio.png`.
