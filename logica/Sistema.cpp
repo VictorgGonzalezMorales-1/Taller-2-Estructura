@@ -68,14 +68,37 @@ void Sistema :: crearPaciente(const string& linea) {
         bool sintomasNeurologicos;
         bool requiereCirugia;
 
+        //Convertir los Booleanos o ver si no son posibles
         if (d->get(7) == "1") {trauma = true;}
         else if (d->get(7) == "0"){trauma = false;}
+        else{delete d; return;}
 
         if (d->get(8) == "1") { sintomasNeurologicos = true;}
         else if (d->get(8) == "0"){sintomasNeurologicos = false;}
+        else{delete d; return;}
 
         if (d->get(9) == "1") {requiereCirugia = true;}
         else if (d->get(9) == "0"){requiereCirugia = false;}
+        else{delete d; return;}
+
+        //Revisar la naturaleza de los números
+        if (id < 0 || edad < 0 || temperatura < 0 || presionArterial < 0 || diasHospitalizacion < 0) {
+            delete d;
+            return;
+        }
+
+        //Revisar la escala de dolor
+        if (dolor < 0 || dolor > 10 ) {
+            delete d;
+            return;
+        }
+
+        //Revisar que el tipo de dolor sea una respuesta válida
+        if (tipoDolor != "pecho" && tipoDolor != "cabeza" && tipoDolor != "abdomen" &&
+            tipoDolor != "extremidad" && tipoDolor != "otro") {
+            delete d;
+            return;
+        }
 
         //Revisar que el nuevo paciente no repita el ID de otro
         for (int a = 0; a < this->idPacientes->getSize(); a++) {
