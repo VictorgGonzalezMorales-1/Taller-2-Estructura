@@ -3,9 +3,9 @@
 
 ## Integrante
 
-| Nombre                         | RUT          | GitHub                   | Carrera |
-| ------------------------------ | ------------ | ------------------------ | ------- |
-| Victor Manuel González Morales | 22.061.552-9 | VictorgGonzalezMorales-1 |  ICI    |
+| Nombre                         | RUT          | GitHub                   | Carrera | Paralelo |
+| ------------------------------ | ------------ | ------------------------ | ------- |----------|
+| Victor Manuel González Morales | 22.061.552-9 | VictorgGonzalezMorales-1 |  ICI    | C1       |
 ## Descripción
 
 Este proyecto es la **continuación y extensión del Taller 1 de Estructura de Datos**.
