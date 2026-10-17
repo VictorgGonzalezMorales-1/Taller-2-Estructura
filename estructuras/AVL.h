@@ -1,0 +1,189 @@
+
+#pragma once
+
+#include "NodeAVL.h"
+#include <algorithm>
+#include "../dominio/Paciente.h"
+template <class T>
+
+class AVL {
+
+//Atributos
+private:
+    NodeAVL<T>* raiz;
+
+    int getAltura(NodeAVL<T>* padre) {
+        if (padre == nullptr) return 0;
+        return padre->getAltura();
+    }
+
+    //Formula factor de balance
+    int getBalance(NodeAVL<T>* padre) {
+        if (padre == nullptr) return 0;
+        return getAltura(padre->getIzquierdo()) - getAltura(padre->getDerecho());
+    }
+
+    //Metodo recursivo para insertar
+    NodeAVL<T>* insertarValor(NodeAVL<T>* padre, NodeAVL<T>* insertar) {
+
+        //Caso en el que no hay nada en la raiz
+        if (padre == nullptr){return insertar;}
+
+        // Caso cuando el valor es menor
+        if (padre->getValue() > insertar->getValue()) {
+            padre->setIzquierdo(insertarValor(padre->getIzquierdo(), insertar));
+        }
+
+        // Caso cuando el valor es menor
+        else {
+            padre->setDerecho(insertarValor(padre->getDerecho(), insertar));
+        }
+
+        //Actualizar la altura del padre
+        int altura = 1 + max(getAltura(padre->getIzquierdo()), getAltura(padre->getDerecho()));
+        padre->setAltura(altura);
+
+        //Se calcula el factor de balance
+        int balance = getBalance(padre);
+
+        //Casos de balanceo
+
+        //Izquierda Izquierda
+        if (balance > 1 && insertar->getValue() < padre->getIzquierdo()->getValue()) {
+            return LL(padre);
+        }
+
+        //Derecha Derecha
+        if (balance < -1 && insertar->getValue() > padre->getDerecho()->getValue()) {
+            return RR(padre);
+        }
+
+        //Izquierda Derecha
+        if (balance > 1 && insertar->getValue() > padre->getIzquierdo()->getValue()) {
+            return LR(padre);
+        }
+
+        //Derecha Izquierda
+        if (balance < -1 && insertar->getValue() < padre->getDerecho()->getValue()) {
+            return RL(padre);
+        }
+
+        return padre;
+
+    }
+
+    //Metodo del caso 1 cuando tenemos un LL
+    NodeAVL<T>* LL(NodeAVL<T>* padre) {
+
+        //Almacenar los hijos
+        NodeAVL<T>* izquierdo = padre->getIzquierdo();
+        NodeAVL<T>* derecho = izquierdo->getDerecho();
+
+        //Acomodarlos
+        izquierdo->setDerecho(padre);
+        padre->setIzquierdo(derecho);
+
+        //Actualizar las alturas
+        padre->setAltura(1 + max(getAltura(padre->getIzquierdo()), getAltura(padre->getDerecho())));
+        izquierdo->setAltura(1 + max(getAltura(izquierdo->getIzquierdo()), getAltura(izquierdo->getDerecho())));
+
+        return izquierdo;
+    }
+
+    //Metodo cuando tenemos el caso RR
+    NodeAVL<T>* RR(NodeAVL<T>* padre) {
+
+        // Almacenar los hijos
+        NodeAVL<T>* derecho = padre->getDerecho();
+        NodeAVL<T>* izquierdo = derecho->getIzquierdo();
+
+        // Acomodar
+        derecho->setIzquierdo(padre);
+        padre->setDerecho(izquierdo);
+
+        // Actualizar las altura
+        padre->setAltura(1 + max(getAltura(padre->getIzquierdo()), getAltura(padre->getDerecho())));
+        derecho->setAltura(1 + max(getAltura(derecho->getIzquierdo()), getAltura(derecho->getDerecho())));
+
+        return derecho;
+    }
+
+    //Metodo cuando tenemos el caso LR
+    NodeAVL<T>* LR(NodeAVL<T>* padre) {
+        //Arreglar los subarboles
+        padre->setIzquierdo(RR(padre->getIzquierdo()));
+
+        // Aplicar el LL
+        return LL(padre);
+    }
+
+    //Metodo cuando tenemos el caso RL
+    NodeAVL<T>* RL(NodeAVL<T>* padre) {
+        //Acomodamos
+        padre->setDerecho(LL(padre->getDerecho()));
+
+        //Aplicar RR
+        return RR(padre);
+    }
+
+    // Sistema para aplicar la busqueda
+    Paciente* buscarValor(NodeAVL<T>* padre, int valor) {
+        //Si no hay nada
+        if (padre == nullptr) return nullptr;
+
+        // Si ya lo encontro
+        if (padre->getValue()->getId() == valor) return padre->getValue();
+
+        //Camino si es menor
+        if (padre->getValue()->getId() > valor) {return buscarValor(padre->getIzquierdo(), valor);}
+
+        //Camino si es Mayor
+        return buscarValor(padre->getDerecho(), valor);
+    }
+
+    //Metodo recursivo para eliminar todos los nodos
+    void destruir(NodeAVL<T>* padre) {
+
+        //Si no hay nada que destruir simplemente se termina la función
+        if (padre == nullptr) return;
+
+        //Ir a las ramas
+        destruir(padre->getIzquierdo());
+        destruir(padre->getDerecho());
+
+        //Eliminar el dato interno del nodo
+        if (padre->getValue() != nullptr) {
+            delete padre->getValue();
+        }
+
+        //Eliminar el nodo
+        delete padre;
+
+    }
+
+//Metodos
+public:
+
+    //Constructor
+    AVL() {
+        this->raiz = nullptr;
+    }
+
+    //Metodo para insertar un valor pero quitando la lógica de la actualización del nodo padre
+    void insertar(NodeAVL<T>* valor) {
+        if (valor == nullptr) return;
+
+        //Como el orden cambia por el ordenamiento aveces, se actualiza por completo la estructura
+        this->raiz = insertarValor(this->raiz, valor);
+    }
+
+    //Metodo para buscar un valor (en este caso el id)
+    Paciente* buscar(int valor) {return buscarValor(this->raiz, valor);}
+
+    //Destructor
+    ~AVL() {
+        destruir(this->raiz);
+        this->raiz = nullptr;
+    }
+
+};

@@ -14,4 +14,5 @@ add_executable(Taller-2-Estructura
         logica/Sistema.cpp
         logica/Sistema.h
         estructuras/NodeArbol.h
-        estructuras/NodeAVL.h)
+        estructuras/NodeAVL.h
+        estructuras/AVL.h)
