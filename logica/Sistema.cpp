@@ -6,6 +6,13 @@ Sistema :: Sistema() {
     this->colaPacientes = new Queue<Paciente*>();
     this->arbolDeDesicion = crearArbolDesicion();
     this->idPacientes = new List<string>();
+    this->arboles = new List<AVL<Paciente*>*>();
+
+    //Para rellenar con puros arboles la lista de servicios
+    for (int a = 0; a < 8; a++) {
+        AVL<Paciente*>* nuevo = new AVL<Paciente*>();
+        this->arboles->insertLast(nuevo);
+    }
 };
 
 List<string>* Sistema :: split(const string& t, char separador) {
@@ -222,6 +229,15 @@ string Sistema :: definirServicio(Paciente* paciente, NodeArbol<string>* nodoAct
         if (pregunta == "") {
 
             //Acá irá el metodo para guardarlo en le AVL
+            for (int a = 0; a < 8; a++) {
+
+                if (this->servicios[a] == nodoActual->getValue()) {
+                    NodeAVL<Paciente*>* nuevo = new NodeAVL<Paciente*>(paciente);
+                    this->arboles->get(a)->insertar(nuevo);
+                    break;
+                }
+
+            }
 
             texto += "\n\nServicio asignado: " + nodoActual->getValue() + "\n\n";
             return texto;
@@ -318,9 +334,16 @@ string Sistema :: definirServicio(Paciente* paciente, NodeArbol<string>* nodoAct
     }catch (...) {
         //Si no se logra conseguir un servicio el cual lo pueda atender de buena manera
         //se envia a Medicina General de Defaul
+
+        NodeAVL<Paciente*>* nuevoInconsistente = new NodeAVL<Paciente*>(paciente);
+        this->arboles->get(1)->insertar(nuevoInconsistente);
+
         texto = "Datos inconsistentes \n\nServicio asignado: Medicina General";
         return texto;
     }
+
+    NodeAVL<Paciente*>* nuevoInconsistenteFinal = new NodeAVL<Paciente*>(paciente);
+    this->arboles->get(1)->insertar(nuevoInconsistenteFinal);
 
     texto = "Datos inconsistentes \n\nServicio asignado: Medicina General";
     return texto;

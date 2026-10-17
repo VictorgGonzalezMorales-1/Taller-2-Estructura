@@ -5,6 +5,7 @@
 #include "../estructuras/List.h"
 #include "../estructuras/Queue.h"
 #include "../estructuras/NodeArbol.h"
+#include "../estructuras/AVL.h"
 #include <string>
 
 using namespace std;
@@ -16,6 +17,17 @@ private:
     Queue<Paciente*>* colaPacientes;
     NodeArbol<string>* arbolDeDesicion;
     List<string>* idPacientes;
+    string servicios[8] = {
+        "Urgencias",
+        "Medicina General",
+        "Cardiología",
+        "Neurología",
+        "Traumatología",
+        "Cirugía",
+        "Pediatría",
+        "Hospitalización"
+    };
+    List<AVL<Paciente*>*>* arboles;
 
 public:
 
