@@ -42,6 +42,7 @@ public:
     NodeArbol<string>* crearArbolDesicion();
     string definirServicio(Paciente* paciente, NodeArbol<string>* nodoActual, string texto);
     string atenderPacientes(int n);
+    string buscarPaciente(int id);
 
     //Destructor
     ~Sistema();

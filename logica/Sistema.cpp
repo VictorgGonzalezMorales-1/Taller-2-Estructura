@@ -350,7 +350,6 @@ string Sistema :: definirServicio(Paciente* paciente, NodeArbol<string>* nodoAct
 }
 
 //Metodo generado para atender a los n pacientes solicitados
-//Incompleto
 string Sistema :: atenderPacientes(int n) {
 
     //Si no hay pacientes termina
@@ -381,6 +380,24 @@ string Sistema :: atenderPacientes(int n) {
     texto += "-----------------------------------------\n";
     return texto;
 
+}
+
+//Metodo para buscar al paciente solicitado en todos los AVL
+string Sistema :: buscarPaciente(int id) {
+
+    //Iterar por cada arbol
+    for (int a = 0; a < 8; a++) {
+
+        //Almacenar el arbol
+        AVL<Paciente*>* revisar = arboles->get(a);
+        Paciente* entregar = revisar->buscar(id);
+
+        //si lo encuentro lo devuelvo
+        if (entregar != nullptr){return entregar->toString();}
+
+    }
+
+    return "Paciente no encontrado";
 }
 
 //Destructor

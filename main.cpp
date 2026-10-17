@@ -39,7 +39,6 @@ static bool read() {
 }
 
 //Metodo para desarrollar la opcion 1 del menu
-//incompleto
 static void opcion1() {
 
     try {
@@ -66,6 +65,34 @@ static void opcion1() {
     }
 }
 
+//Metodo para desarrollar la opcion 3 del menu
+static void opcion3() {
+
+    try {
+
+        //Solicitar los datos
+        string respuesta = "";
+        p("Ingrese el id que desea buscar: ");
+
+        cin >> respuesta;
+
+        int numero = stoi(respuesta);
+
+        //Revisar que sean datos válidos
+        if (numero > 0) {
+            p(S->buscarPaciente(numero) + "\n");
+        }
+        else {
+            p("Ingrese un id válido ....\n");
+        }
+
+    }
+    catch (...) {
+        p("Ingrese un id válido ....\n");
+    }
+
+}
+
 //Metodo el cual desplegara el menu a emplear
 static void menu() {
 
@@ -90,7 +117,7 @@ static void menu() {
         //Reaccionar segun la opcion dada
        if (opcion == "1"){opcion1();}
        else if (opcion == "2"){p("2\n");}
-       else if (opcion == "3"){p("3\n");}
+       else if (opcion == "3"){opcion3();}
        else if (opcion == "4"){p("saliendo....\n");}
        else{p("Seleccione una opción disponible\n");}
 
