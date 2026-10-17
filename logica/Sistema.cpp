@@ -388,12 +388,20 @@ string Sistema :: buscarPaciente(int id) {
     //Iterar por cada arbol
     for (int a = 0; a < 8; a++) {
 
+        string ruta = "";
+
         //Almacenar el arbol
         AVL<Paciente*>* revisar = arboles->get(a);
-        Paciente* entregar = revisar->buscar(id);
+        Paciente* entregar = revisar->buscar(id, ruta);
 
         //si lo encuentro lo devuelvo
-        if (entregar != nullptr){return entregar->toString();}
+        if (entregar != nullptr) {
+            string respuesta = "Paciente encontrado:\n-------\n\n";
+            respuesta += entregar->toString() + "\n\n";
+            respuesta += "Departamento: " + servicios[a] + "\n";
+            respuesta += "Ruta de búsqueda: " + ruta;
+            return respuesta;
+        }
 
     }
 

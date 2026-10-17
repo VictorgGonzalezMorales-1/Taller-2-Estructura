@@ -127,18 +127,22 @@ private:
     }
 
     // Sistema para aplicar la busqueda
-    Paciente* buscarValor(NodeAVL<T>* padre, int valor) {
+    Paciente* buscarValor(NodeAVL<T>* padre, int valor, string& ruta) {
+
         //Si no hay nada
         if (padre == nullptr) return nullptr;
+
+        //Almacenar la ruta
+        ruta += to_string(padre->getValue()->getId()) + "-> ";
 
         // Si ya lo encontro
         if (padre->getValue()->getId() == valor) return padre->getValue();
 
         //Camino si es menor
-        if (padre->getValue()->getId() > valor) {return buscarValor(padre->getIzquierdo(), valor);}
+        if (padre->getValue()->getId() > valor) {return buscarValor(padre->getIzquierdo(), valor, ruta);}
 
         //Camino si es Mayor
-        return buscarValor(padre->getDerecho(), valor);
+        return buscarValor(padre->getDerecho(), valor, ruta);
     }
 
     //Metodo recursivo para eliminar todos los nodos
@@ -178,7 +182,7 @@ public:
     }
 
     //Metodo para buscar un valor (en este caso el id)
-    Paciente* buscar(int valor) {return buscarValor(this->raiz, valor);}
+    Paciente* buscar(int valor, string& ruta) {return buscarValor(this->raiz, valor, ruta);}
 
     //Destructor
     ~AVL() {
