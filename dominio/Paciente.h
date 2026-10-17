@@ -43,6 +43,11 @@ public:
     //Métodos
     string toString() const;
 
+    //Sobrecarga de Operadores
+
+    bool operator < (const Paciente& comparar) const;
+    bool operator > (const Paciente& comparar) const;
+
     //Destructor
     ~Paciente();
 

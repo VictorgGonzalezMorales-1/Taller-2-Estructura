@@ -30,7 +30,7 @@ private:
         if (padre == nullptr){return insertar;}
 
         // Caso cuando el valor es menor
-        if (padre->getValue() > insertar->getValue()) {
+        if (*(padre->getValue()) > *(insertar->getValue())) {
             padre->setIzquierdo(insertarValor(padre->getIzquierdo(), insertar));
         }
 
@@ -49,22 +49,22 @@ private:
         //Casos de balanceo
 
         //Izquierda Izquierda
-        if (balance > 1 && insertar->getValue() < padre->getIzquierdo()->getValue()) {
+        if (balance > 1 && *(insertar->getValue()) < *(padre->getIzquierdo()->getValue())) {
             return LL(padre);
         }
 
         //Derecha Derecha
-        if (balance < -1 && insertar->getValue() > padre->getDerecho()->getValue()) {
+        if (balance < -1 && *(insertar->getValue()) > *(padre->getDerecho()->getValue())) {
             return RR(padre);
         }
 
         //Izquierda Derecha
-        if (balance > 1 && insertar->getValue() > padre->getIzquierdo()->getValue()) {
+        if (balance > 1 && *(insertar->getValue()) > *(padre->getIzquierdo()->getValue())) {
             return LR(padre);
         }
 
         //Derecha Izquierda
-        if (balance < -1 && insertar->getValue() < padre->getDerecho()->getValue()) {
+        if (balance < -1 && *(insertar->getValue()) < *(padre->getDerecho()->getValue())) {
             return RL(padre);
         }
 
