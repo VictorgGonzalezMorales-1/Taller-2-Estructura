@@ -22,9 +22,12 @@ El sistema utiliza las siguientes estructuras:
 
 - **Cola (Queue):** Estructura implementada manualmente mediante nodos y punteros. Almacena los pacientes pendientes de atención respetando el orden de llegada.
 
-- **Nodo de Árbol (NodeArbol):** Clase genérica utilizada como elemento fundamental para la construcción de distintos tipos de árbol como lo es un árbol de decisión.
+- **Nodo de Árbol (NodeArbol):** Clase genérica utilizada como elemento fundamental para la construcción del árbol de decisión.
 
-*Rellenar*
+- **Node de Árbol AVL (NodeAVL):** Clase genérica empleado como elemento fundamental a la hora de generar la construcción de los árboles AVL.
+
+- **Árbol AVL (NodeAVL):** Estructura implentada manualmente la cual genera un arbol binario el cual se balancea automáticamente.
+
 ## Estructura del Proyecto
 
 
@@ -39,22 +42,23 @@ Taller-2-Estructura/
 │   └── Paciente.cpp
 │
 ├── estructuras/
+│   ├── AVL.h
+│   ├── List.h
 │   ├── Node.h
 │   ├── NodeArbol.h
-│   ├── List.h
+│   ├── NodeAVL.h
 │   ├── Queue.h
 │   └── Stack.h
 │
 ├── logica/
-│   ├── Sistema.h
-│   └── Sistema.cpp
+│   ├── Sistema.cpp
+│   └── Sistema.h
 │
 ├── CMakeLists.txt
 ├── main.cpp
 └── Pacientes.txt
 ```
 
-*Rellenar*
 ## Archivo de Pacientes
 
 Cada línea del archivo representa una ficha médica y debe contener los siguientes **atributos en orden estricto**, separados por punto y coma (`;`):
@@ -162,7 +166,40 @@ Si prefieres ejecutar los comandos de forma manual y secuencial:
 
 ## Ejecución y Flujo del Sistema
 
+Al iniciar el programa, el sistema ejecuta de forma automática el flujo inicial de carga, dejando la atención bajo el control directo del usuario a través del menú:
+
+```text
+Archivo --> Cola --(Acción del Usuario)--> Árbol de decisión --> Servicio → AVL
+```
+
+### Menú de Interacción y Flujos de Control 
+
+```text
+=== HOSPITAL MARMAJA ===
+
+1. Atender pacientes
+2. Ver departamento
+3. Revisar historial de atencion
+4. Salir
+   Seleccionar opcion:
+```
+
+#### Opciones y Flujos de Control:
+
+* **Opción 1: Atender pacientes (Clasificación e Inserción AVL)**
+    * **Datos solicitados:** Solicita al usuario ingresar el número de pacientes que desee atender.
+    * **Operación:** El sistema toma los datos clínicos y constantes vitales del paciente (Edad, Trauma, Síntomas Neurológicos, Tipo de Dolor, Temperatura, Días de Hospitalización, etc.).
+    * **Flujo del Árbol:** Estos parámetros pasan por un árbol de decisión jerárquico que evalúa de forma consecutiva múltiples condicionales (ej. `Edad >= 14 -> Trauma == 0 -> ...`). Al finalizar la ruta, se le asigna automáticamente un servicio médico específico y el paciente es **insertado de manera balanceada en el Árbol AVL** del departamento correspondiente.
+
 *Rellenar*
+
+* **Opción 3: Buscar paciente (Búsqueda Eficiente en AVL)**
+    * **Datos solicitados:** Solicita al usuario ingresar el ID o el Nombre del paciente que se desea localizar en el sistema.
+    * **Operación:** Realiza un procedimiento de búsqueda a lo largo de las estructuras. Si el paciente es hallado, se imprimen en pantalla todos sus datos de admisión y diagnóstico clínico recopilados.
+    * **Flujo del Árbol:** Además del reporte clínico, la interfaz muestra de forma explícita la **Ruta de búsqueda**, reflejando el recorrido exacto por los nodos del árbol AVL que pasó hasta dar con el registro.
+
+*Rellenar*
+
 ## Servicios disponibles
 
 El **Hospital Marmaja** considera los siguientes servicios:
@@ -181,7 +218,11 @@ El **Hospital Marmaja** considera los siguientes servicios:
 El proyecto se encuentra dividido en diferentes módulos:
 
 * **`documentos/`** : Contiene los diagramas y material complementario del diseño clínico, como el archivo `Arbol_de_Decision_Tipo_de_Servicio.png`.
-* **`dominio/`** : Contiene la clase `Paciente` (`Paciente.h` y `Paciente.cpp`), encargada de encapsular los atributos y variables de la ficha médica.
-* **`estructuras/`** : Contiene las implementaciones manuales de las estructuras de datos fundamentales: `Node`, `NodeArbol`, `List`, `Queue` y `Stack`.
-* **`logica/`** : Contiene la interfaz `Sistema` (`Sistema.h` y `Sistema.cpp`), que maneja el controlador del flujo hospitalario, la validación de datos y el motor de clasificación de pacientes.
+
+* **`dominio/`** : Contiene la clase `Paciente`, encargada de encapsular los atributos y variables de la ficha médica.
+
+* **`estructuras/`** : Contiene las implementaciones manuales de las estructuras de datos fundamentales: `Node`, `NodeAVL`, `NodeArbol`, `AVL`, `NodeArbol`, `List`, `Queue` y `Stack`.
+
+* **`logica/`** : Contiene la interfaz `Sistema`, que maneja el controlador del flujo hospitalario, la validación de datos y el motor de clasificación de pacientes.
+
 * **`main.cpp`** : Contiene el flujo principal del programa, la inicialización del sistema y el menú interactivo para el usuario.

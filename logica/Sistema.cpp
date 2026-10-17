@@ -239,7 +239,8 @@ string Sistema :: definirServicio(Paciente* paciente, NodeArbol<string>* nodoAct
 
             }
 
-            texto += "\n\nServicio asignado: " + nodoActual->getValue() + "\n\n";
+            texto += "\n\nServicio asignado: " + nodoActual->getValue() + "\n";
+            texto += "Paciente insertado en el AVL de " + nodoActual->getValue() + "\n\n";
             return texto;
         }
 
