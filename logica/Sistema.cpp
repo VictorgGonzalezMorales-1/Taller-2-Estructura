@@ -428,6 +428,25 @@ string Sistema :: entregarServiciosPacientes() {
 
 //Destructor
 Sistema::~Sistema() {
-    delete this->colaPacientes;
-    delete this->arbolDeDesicion;
+    //Borrar la cola
+    if (this->colaPacientes != nullptr) {
+        delete this->colaPacientes;
+    }
+
+    //Borrar el Arbol
+    if (this->arbolDeDesicion != nullptr) {
+        delete this->arbolDeDesicion;
+    }
+
+    //Borrar la lista junto con sus AVL
+    if (this->arboles != nullptr) {
+
+        for (int a = 0; a < 8; a++) {
+            delete arboles->get(a);
+        }
+
+        delete this->arboles;
+    }
+
+
 }

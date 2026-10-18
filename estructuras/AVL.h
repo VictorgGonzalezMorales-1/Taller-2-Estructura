@@ -5,6 +5,9 @@
 #include <string>
 #include <algorithm>
 #include "../dominio/Paciente.h"
+
+using namespace std;
+
 template <class T>
 
 class AVL {
@@ -242,7 +245,7 @@ public:
     //Metodo para entregar los paciente InOrden
     string inOrden() {
 
-        string orden = "== InOrden ==";
+        string orden = "== InOrden ==\n\n";
         calcInOrden(this->raiz, orden);
 
         return orden;
@@ -251,7 +254,7 @@ public:
     //Metodo para entregar los paciente PreOrden
     string preOrden() {
 
-        string orden = "== PreOrden ==";
+        string orden = "== PreOrden ==\n\n";
         calcPreOrden(this->raiz, orden);
 
         return orden;
@@ -260,7 +263,7 @@ public:
     //Metodo para entregar los paciente PostOrden
     string postOrden() {
 
-        string orden = "== PosOrden ==";
+        string orden = "== PosOrden ==\n\n";
         calcPostOrden(this->raiz, orden);
 
         return orden;

@@ -36,8 +36,11 @@ public:
 
     //Destructor
     ~NodeArbol(){
-        delete derecha;
         delete izquierda;
+        izquierda = nullptr;
+
+        delete derecha;
+        derecha = nullptr;
     }
 
 };

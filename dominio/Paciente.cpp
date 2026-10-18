@@ -73,3 +73,6 @@ string Paciente :: toString() const {
 
 bool Paciente :: operator < (const Paciente& comparar)  const {return this->id < comparar.getId();}
 bool Paciente :: operator > (const Paciente& comparar)  const {return this->id > comparar.getId();}
+
+//Destructor
+Paciente::~Paciente() {}
