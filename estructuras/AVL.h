@@ -156,7 +156,7 @@ private:
         if (padre->getIzquierdo() != nullptr){calcInOrden(padre->getIzquierdo(), texto);}
 
         //Almacenar el dato del padre
-        texto +=  "Pacientes: " + padre->getValue()->getNombre() + " (" + to_string(padre->getValue()->getId()) + ")" + "\n\n";
+        texto +=  "Pacientes: " + padre->getValue()->getNombre() + " (" + to_string(padre->getValue()->getId()) + ")" + "\n";
 
         //Entrar al nodo Derecho
         if (padre->getDerecho() != nullptr){calcInOrden(padre->getDerecho(), texto);}
@@ -170,7 +170,7 @@ private:
         if (padre == nullptr) return;
 
         //Almacenar el valor del padre
-        texto +=  "Pacientes: " + padre->getValue()->getNombre() + " (" + to_string(padre->getValue()->getId()) + ")" + "\n\n";
+        texto +=  "Pacientes: " + padre->getValue()->getNombre() + " (" + to_string(padre->getValue()->getId()) + ")" + "\n";
 
         //Pasar al izquierdo
         if (padre->getIzquierdo() != nullptr) {
@@ -196,7 +196,7 @@ private:
         // Entrar al Derecho
         if (padre->getDerecho() != nullptr) {calcPostOrden(padre->getDerecho(), texto);}
 
-        texto +=  "Pacientes: " + padre->getValue()->getNombre() + " (" + to_string(padre->getValue()->getId()) + ")" + "\n\n";
+        texto +=  "Pacientes: " + padre->getValue()->getNombre() + " (" + to_string(padre->getValue()->getId()) + ")" + "\n";
 
     }
 

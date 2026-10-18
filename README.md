@@ -191,7 +191,10 @@ Archivo --> Cola --(Acción del Usuario)--> Árbol de decisión --> Servicio →
     * **Operación:** El sistema toma los datos clínicos y constantes vitales del paciente (Edad, Trauma, Síntomas Neurológicos, Tipo de Dolor, Temperatura, Días de Hospitalización, etc.).
     * **Flujo del Árbol:** Estos parámetros pasan por un árbol de decisión jerárquico que evalúa de forma consecutiva múltiples condicionales (ej. `Edad >= 14 -> Trauma == 0 -> ...`). Al finalizar la ruta, se le asigna automáticamente un servicio médico específico y el paciente es **insertado de manera balanceada en el Árbol AVL** del departamento correspondiente.
 
-*Rellenar*
+* **Opción 2: Ver Departamentos (Procesamiento de nodos con dos hijos en el recorrido InOrden)**
+    * **Datos solicitados:** Ninguno.
+    * **Operación:** El sistema ejecuta un bucle para recorrer cada servicio y solicita a los árboles AVL su reporte en formato InOrden. Al procesar internamente los nodos con dos hijos, la función recursiva desciende primero por el subárbol izquierdo por completo, luego procesa el nodo actual (raíz local), y finalmente se desplaza hacia el subárbol derecho.
+    * **Flujo del Árbol:** Al activar la opción 2, el recorrido procesa de manera simétrica las bifurcaciones de los nodos que poseen ambos hijos. Esto garantiza que toda la rama izquierda (valores menores) se concatene en el texto antes de la raíz del nodo, y toda la rama derecha (valores mayores) después, entregando en pantalla la lista de pacientes perfectamente ordenada de manera secuencial por su identificador.
 
 * **Opción 3: Buscar paciente (Búsqueda Eficiente en AVL)**
     * **Datos solicitados:** Solicita al usuario ingresar el ID o el Nombre del paciente que se desea localizar en el sistema.
