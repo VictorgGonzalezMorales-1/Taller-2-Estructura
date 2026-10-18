@@ -409,6 +409,23 @@ string Sistema :: buscarPaciente(int id) {
     return "Paciente no encontrado";
 }
 
+//Metodo para entregar los pacientes de cada sector en orden por todos los sectores
+string Sistema :: entregarServiciosPacientes() {
+
+    string texto = "=== ESTADO DE LOS DEPARTAMENTOS ===\n\n";
+
+    //Bucle para pasar por cada servicio
+    for (int a = 0; a < 8; a++) {
+
+        texto += servicios[a]+ "\n";
+        texto += arboles->get(a)->inOrden() + "\n\n";
+
+    }
+
+    return texto;
+
+}
+
 //Destructor
 Sistema::~Sistema() {
     delete this->colaPacientes;

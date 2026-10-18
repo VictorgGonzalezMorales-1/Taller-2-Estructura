@@ -65,6 +65,11 @@ static void opcion1() {
     }
 }
 
+//Metodo para desarrollar la opcion 2 del menu
+static void opcion2() {
+    p(S->entregarServiciosPacientes());
+}
+
 //Metodo para desarrollar la opcion 3 del menu
 static void opcion3() {
 
@@ -116,7 +121,7 @@ static void menu() {
 
         //Reaccionar segun la opcion dada
        if (opcion == "1"){opcion1();}
-       else if (opcion == "2"){p("2\n");}
+       else if (opcion == "2"){opcion2();}
        else if (opcion == "3"){opcion3();}
        else if (opcion == "4"){p("saliendo....\n");}
        else{p("Seleccione una opción disponible\n");}

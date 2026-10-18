@@ -2,6 +2,7 @@
 #pragma once
 
 #include "NodeAVL.h"
+#include <string>
 #include <algorithm>
 #include "../dominio/Paciente.h"
 template <class T>
@@ -155,7 +156,7 @@ private:
         if (padre->getIzquierdo() != nullptr){calcInOrden(padre->getIzquierdo(), texto);}
 
         //Almacenar el dato del padre
-        texto +=  padre->toString() + "\n\n";
+        texto +=  "Pacientes: " + padre->getValue()->getNombre() + " (" + to_string(padre->getValue()->getId()) + ")" + "\n\n";
 
         //Entrar al nodo Derecho
         if (padre->getDerecho() != nullptr){calcInOrden(padre->getDerecho(), texto);}
@@ -169,7 +170,7 @@ private:
         if (padre == nullptr) return;
 
         //Almacenar el valor del padre
-        texto += padre->toString() + "\n\n";
+        texto +=  "Pacientes: " + padre->getValue()->getNombre() + " (" + to_string(padre->getValue()->getId()) + ")" + "\n\n";
 
         //Pasar al izquierdo
         if (padre->getIzquierdo() != nullptr) {
@@ -195,7 +196,7 @@ private:
         // Entrar al Derecho
         if (padre->getDerecho() != nullptr) {calcPostOrden(padre->getDerecho(), texto);}
 
-        texto+= padre->toString() + "\n\n";
+        texto +=  "Pacientes: " + padre->getValue()->getNombre() + " (" + to_string(padre->getValue()->getId()) + ")" + "\n\n";
 
     }
 
