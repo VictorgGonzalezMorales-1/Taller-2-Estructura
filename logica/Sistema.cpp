@@ -426,6 +426,21 @@ string Sistema :: entregarServiciosPacientes() {
 
 }
 
+//Metodo para eliminar el arbol de decisión de forma segura
+void Sistema :: EliminarADesicion(NodeArbol<string>* nodo) {
+
+    //Si ra vacio no hacemos nada
+    if (nodo == nullptr) return;
+
+    //Recorrer hasta llegar al fondo
+    EliminarADesicion(nodo->getIzquierdo());
+    EliminarADesicion(nodo->getDerecho());
+
+    //Eliminar el nodo padre
+    delete nodo;
+
+}
+
 //Destructor
 Sistema::~Sistema() {
     //Borrar la cola
@@ -435,10 +450,12 @@ Sistema::~Sistema() {
 
     //Borrar el Arbol
     if (this->arbolDeDesicion != nullptr) {
-        delete this->arbolDeDesicion;
+        EliminarADesicion(this->arbolDeDesicion);
+        this->arbolDeDesicion = nullptr;
     }
 
     //Borrar la lista junto con sus AVL
+
     if (this->arboles != nullptr) {
 
         for (int a = 0; a < 8; a++) {
@@ -447,6 +464,5 @@ Sistema::~Sistema() {
 
         delete this->arboles;
     }
-
 
 }

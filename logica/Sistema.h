@@ -44,6 +44,7 @@ public:
     string atenderPacientes(int n);
     string buscarPaciente(int id);
     string entregarServiciosPacientes();
+    void EliminarADesicion(NodeArbol<string>* nodo);
 
     //Destructor
     ~Sistema();

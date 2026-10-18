@@ -35,12 +35,6 @@ public:
     void setPregunta(string pregunta){this->pregunta = pregunta;}
 
     //Destructor
-    ~NodeArbol(){
-        delete izquierda;
-        izquierda = nullptr;
-
-        delete derecha;
-        derecha = nullptr;
-    }
+    ~NodeArbol() {}
 
 };
