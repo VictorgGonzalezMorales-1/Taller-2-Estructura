@@ -34,7 +34,7 @@ private:
             padre->setIzquierdo(insertarValor(padre->getIzquierdo(), insertar));
         }
 
-        // Caso cuando el valor es menor
+        // Caso cuando el valor es mayor
         else {
             padre->setDerecho(insertarValor(padre->getDerecho(), insertar));
         }
@@ -145,6 +145,60 @@ private:
         return buscarValor(padre->getDerecho(), valor, ruta);
     }
 
+    // Calcular el InOrden
+    void calcInOrden(NodeAVL<T>* padre, string& texto) {
+
+        //Caso de que estpe vacio
+        if (padre == nullptr) return;
+
+        //Entrar al nodo Izquierdo
+        if (padre->getIzquierdo() != nullptr){calcInOrden(padre->getIzquierdo(), texto);}
+
+        //Almacenar el dato del padre
+        texto +=  padre->toString() + "\n\n";
+
+        //Entrar al nodo Derecho
+        if (padre->getDerecho() != nullptr){calcInOrden(padre->getDerecho(), texto);}
+
+    }
+
+    // Calcular el PreOrden
+    void calcPreOrden(NodeAVL<T>* padre, string& texto) {
+
+        //Revisar que no tire fallo si está vacio
+        if (padre == nullptr) return;
+
+        //Almacenar el valor del padre
+        texto += padre->toString() + "\n\n";
+
+        //Pasar al izquierdo
+        if (padre->getIzquierdo() != nullptr) {
+            calcPreOrden(padre->getIzquierdo(), texto);
+        }
+
+        //Pasar al Derecho
+        if (padre->getDerecho() != nullptr) {
+            calcPreOrden(padre->getDerecho(), texto);
+        }
+
+    }
+
+    // Calcular el PostOrden
+    void calcPostOrden(NodeAVL<T>* padre, string& texto) {
+
+        // Revisar que no esté vacío el padre
+        if (padre == nullptr) {return;}
+
+        // Entrar al izquierdo
+        if (padre->getIzquierdo() != nullptr) {calcPostOrden(padre->getIzquierdo(), texto);}
+
+        // Entrar al Derecho
+        if (padre->getDerecho() != nullptr) {calcPostOrden(padre->getDerecho(), texto);}
+
+        texto+= padre->toString() + "\n\n";
+
+    }
+
     //Metodo recursivo para eliminar todos los nodos
     void destruir(NodeAVL<T>* padre) {
 
@@ -183,6 +237,33 @@ public:
 
     //Metodo para buscar un valor (en este caso el id)
     Paciente* buscar(int valor, string& ruta) {return buscarValor(this->raiz, valor, ruta);}
+
+    //Metodo para entregar los paciente InOrden
+    string inOrden() {
+
+        string orden = "== InOrden ==";
+        calcInOrden(this->raiz, orden);
+
+        return orden;
+    }
+
+    //Metodo para entregar los paciente PreOrden
+    string preOrden() {
+
+        string orden = "== PreOrden ==";
+        calcPreOrden(this->raiz, orden);
+
+        return orden;
+    }
+
+    //Metodo para entregar los paciente PostOrden
+    string postOrden() {
+
+        string orden = "== PosOrden ==";
+        calcPostOrden(this->raiz, orden);
+
+        return orden;
+    }
 
     //Destructor
     ~AVL() {
