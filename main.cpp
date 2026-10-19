@@ -67,25 +67,32 @@ static void opcion1() {
 
 //Metodo para desarrollar la opcion 2 del menu
 static void opcion2() {
-    p(S->entregarServiciosPacientes());
+
+    p("Ingrese como quiere que se entregue el orden de los paciente:\n1.- InOrden\n2.- PreOrden\n3.- PostOrden");
+    string respuesta = "";
+    cin >> respuesta;
+
+    if (respuesta == "1" || respuesta == "2" || respuesta == "3") {p(S->entregarServiciosPacientes(respuesta));}
+    else{p("Opción inválida....");}
+
 }
 
 //Metodo para desarrollar la opcion 3 del menu
 static void opcion3() {
 
+    //Solicitar los datos
+        string respuesta = "";
+        p("Ingrese el ID o nombre que desea buscar: ");
+
     try {
 
-        //Solicitar los datos
-        string respuesta = "";
-        p("Ingrese el id que desea buscar: ");
-
-        cin >> respuesta;
+        getline(cin >> ws, respuesta);
 
         int numero = stoi(respuesta);
 
         //Revisar que sean datos válidos
         if (numero > 0) {
-            p(S->buscarPaciente(numero) + "\n");
+            p(S->buscarPacienteID(numero) + "\n");
         }
         else {
             p("Ingrese un id válido ....\n");
@@ -93,7 +100,7 @@ static void opcion3() {
 
     }
     catch (...) {
-        p("Ingrese un id válido ....\n");
+        p(S->buscarPacienteNombre(respuesta) + "\n");
     }
 
 }

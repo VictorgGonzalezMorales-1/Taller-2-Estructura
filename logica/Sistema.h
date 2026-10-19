@@ -42,8 +42,9 @@ public:
     NodeArbol<string>* crearArbolDesicion();
     string definirServicio(Paciente* paciente, NodeArbol<string>* nodoActual, string texto);
     string atenderPacientes(int n);
-    string buscarPaciente(int id);
-    string entregarServiciosPacientes();
+    string buscarPacienteID(int id);
+    string buscarPacienteNombre(const string& nombre);
+    string entregarServiciosPacientes(string tipo);
     void EliminarADesicion(NodeArbol<string>* nodo);
 
     //Destructor

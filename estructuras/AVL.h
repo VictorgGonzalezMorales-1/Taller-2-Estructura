@@ -131,7 +131,7 @@ private:
     }
 
     // Sistema para aplicar la busqueda
-    Paciente* buscarValor(NodeAVL<T>* padre, int valor, string& ruta) {
+    Paciente* buscarValorID(NodeAVL<T>* padre, int valor, string& ruta) {
 
         //Si no hay nada
         if (padre == nullptr) return nullptr;
@@ -143,10 +143,30 @@ private:
         if (padre->getValue()->getId() == valor) return padre->getValue();
 
         //Camino si es menor
-        if (padre->getValue()->getId() > valor) {return buscarValor(padre->getIzquierdo(), valor, ruta);}
+        if (padre->getValue()->getId() > valor) {return buscarValorID(padre->getIzquierdo(), valor, ruta);}
 
         //Camino si es Mayor
-        return buscarValor(padre->getDerecho(), valor, ruta);
+        return buscarValorID(padre->getDerecho(), valor, ruta);
+    }
+
+    // Sistema para aplicar la busqueda
+    Paciente* buscarValorNombre(NodeAVL<T>* padre, const string& nombre, string& ruta) {
+
+        //Si no hay nada
+        if (padre == nullptr) return nullptr;
+
+        //Almacenar la ruta
+        ruta += to_string(padre->getValue()->getId()) + "-> ";
+
+        // Si ya lo encontro
+        if (padre->getValue()->getNombre() == nombre) return padre->getValue();
+
+        //Buscar en el subarbol izquierdo
+        Paciente* encontrado = buscarValorNombre(padre->getIzquierdo(), nombre, ruta);
+        if (encontrado != nullptr) return encontrado;
+
+        //Si no estaba a la izquierda, buscar en el derecho
+        return buscarValorNombre(padre->getDerecho(), nombre, ruta);
     }
 
     // Calcular el InOrden
@@ -274,6 +294,9 @@ private:
                     //Almacenar el hijo
                     NodeAVL<T>* temporal = hijo;
 
+                    //Eliminar el paciente guardado
+                    delete padre->getValue();
+
                     //Pasar la informacion
                     padre->setValue(temporal->getValue());
                     padre->setIzquierdo(temporal->getIzquierdo());
@@ -345,7 +368,10 @@ public:
     }
 
     //Metodo para buscar un valor (en este caso el id)
-    Paciente* buscar(int valor, string& ruta) {return buscarValor(this->raiz, valor, ruta);}
+    Paciente* buscarID(int valor, string& ruta) {return buscarValorID(this->raiz, valor, ruta);}
+
+    //Metodo para buscar un valor (en este caso el nombre)
+    Paciente* buscarNombre(const string& nombre, string& ruta) {return buscarValorNombre(this->raiz, nombre, ruta);}
 
     //Metodo para entregar los paciente InOrden
     string inOrden() {

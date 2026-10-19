@@ -385,7 +385,7 @@ string Sistema :: atenderPacientes(int n) {
 }
 
 //Metodo para buscar al paciente solicitado en todos los AVL
-string Sistema :: buscarPaciente(int id) {
+string Sistema :: buscarPacienteID(int id) {
 
     //Iterar por cada arbol
     for (int a = 0; a < 8; a++) {
@@ -394,7 +394,7 @@ string Sistema :: buscarPaciente(int id) {
 
         //Almacenar el arbol
         AVL<Paciente*>* revisar = arboles->get(a);
-        Paciente* entregar = revisar->buscar(id, ruta);
+        Paciente* entregar = revisar->buscarID(id, ruta);
 
         //si lo encuentro lo devuelvo
         if (entregar != nullptr) {
@@ -410,8 +410,28 @@ string Sistema :: buscarPaciente(int id) {
     return "Paciente no encontrado";
 }
 
+//Metodo para buscar el paciente pero por el nombre
+string Sistema :: buscarPacienteNombre(const string& nombre) {
+
+    for (int a = 0; a < 8; a++) {
+
+        string ruta = "";
+        Paciente* entregar = arboles->get(a)->buscarNombre(nombre, ruta);
+
+        if (entregar != nullptr) {
+            string respuesta = "Paciente encontrado:\n-------\n\n";
+            respuesta += entregar->toString() + "\n\n";
+            respuesta += "Departamento: " + servicios[a] + "\n";
+            respuesta += "Ruta de búsqueda: " + ruta;
+            return respuesta;
+        }
+    }
+
+    return "Paciente no encontrado";
+}
+
 //Metodo para entregar los pacientes de cada sector en orden por todos los sectores
-string Sistema :: entregarServiciosPacientes() {
+string Sistema :: entregarServiciosPacientes(string tipo) {
 
     string texto = "=== ESTADO DE LOS DEPARTAMENTOS ===\n\n";
 
@@ -419,7 +439,11 @@ string Sistema :: entregarServiciosPacientes() {
     for (int a = 0; a < 8; a++) {
 
         texto += servicios[a]+ "\n";
-        texto += arboles->get(a)->inOrden() + "\n\n";
+
+        if (tipo == "1"){texto += arboles->get(a)->inOrden() + "\n\n";}
+        else if (tipo == "2"){texto += arboles->get(a)->preOrden() + "\n\n";}
+        else {texto += arboles->get(a)->postOrden() + "\n\n";}
+
 
     }
 
@@ -478,5 +502,8 @@ Sistema::~Sistema() {
 
         delete this->arboles;
     }
+
+    //Eliminar la lista con los ids de los pacientes
+    delete this->idPacientes;
 
 }
