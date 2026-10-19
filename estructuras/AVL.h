@@ -365,7 +365,7 @@ public:
         this->raiz = insertarValor(this->raiz, valor);
     }
 
-    int getAlturaP(){return this->raiz->getAltura();}
+    int getAlturaP(){return getAltura(this->raiz);}
 
     //Metodo para buscar un valor (en este caso el id)
     Paciente* buscarID(int valor, string& ruta) {return buscarValorID(this->raiz, valor, ruta);}
