@@ -401,7 +401,7 @@ string Sistema :: buscarPacienteID(int id) {
             string respuesta = "Paciente encontrado:\n-------\n\n";
             respuesta += entregar->toString() + "\n\n";
             respuesta += "Departamento: " + servicios[a] + "\n";
-            respuesta += "Ruta de búsqueda: " + ruta;
+            respuesta += "Ruta de búsqueda: " + ruta + "\n";
             return respuesta;
         }
 
@@ -440,10 +440,11 @@ string Sistema :: entregarServiciosPacientes(string tipo) {
 
         texto += servicios[a]+ "\n";
 
-        if (tipo == "1"){texto += arboles->get(a)->inOrden() + "\n\n";}
-        else if (tipo == "2"){texto += arboles->get(a)->preOrden() + "\n\n";}
-        else {texto += arboles->get(a)->postOrden() + "\n\n";}
+        if (tipo == "1"){texto += arboles->get(a)->inOrden() + "\n";}
+        else if (tipo == "2"){texto += arboles->get(a)->preOrden() + "\n";}
+        else {texto += arboles->get(a)->postOrden() + "\n";}
 
+        texto += "Altura: " + to_string(arboles->get(a)->getAlturaP()) + "\n\n";
 
     }
 

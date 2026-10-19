@@ -355,9 +355,7 @@ private:
 public:
 
     //Constructor
-    AVL() {
-        this->raiz = nullptr;
-    }
+    AVL() {this->raiz = nullptr;}
 
     //Metodo para insertar un valor pero quitando la lógica de la actualización del nodo padre
     void insertar(NodeAVL<T>* valor) {
@@ -366,6 +364,8 @@ public:
         //Como el orden cambia por el ordenamiento aveces, se actualiza por completo la estructura
         this->raiz = insertarValor(this->raiz, valor);
     }
+
+    int getAlturaP(){return this->raiz->getAltura();}
 
     //Metodo para buscar un valor (en este caso el id)
     Paciente* buscarID(int valor, string& ruta) {return buscarValorID(this->raiz, valor, ruta);}
