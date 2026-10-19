@@ -223,6 +223,111 @@ private:
 
     }
 
+    //Metodo para encontrar al menor del nodo que le den
+    NodeAVL<T>* getMenor(NodeAVL<T>* padre) {
+
+        //Guardar el nodo
+        NodeAVL<T>* actual = padre;
+
+        //Bucle para ir lo más a la derecha posible
+        while (actual->getIzquierdo() != nullptr) {
+            actual = actual->getIzquierdo();
+        }
+
+        return actual;
+    }
+
+    //Metodo para trabajar toda la lógica de eliminar elemento
+    NodeAVL<T>* eliminarElemento(NodeAVL<T>* padre, int posicion) {
+
+        //Si no hay nada
+        if (padre == nullptr) return nullptr;
+
+        //Guardar el id a comparar
+        int idComparada = padre->getValue()->getId();
+
+        //Si el id es menor pasamos al izquierdo
+        if (posicion < idComparada) {padre->setIzquierdo(eliminarElemento(padre->getIzquierdo(), posicion));}
+        //Si el id es mayor pasamos al derecho
+        else if (posicion > idComparada) {padre->setDerecho(eliminarElemento(padre->getDerecho(), posicion));}
+        //Si encontramos el valor
+        else {
+            // Si se tiene uno o ningún hijo
+            if (padre->getIzquierdo() == nullptr || padre->getDerecho() == nullptr) {
+
+                NodeAVL<T>* hijo = nullptr;
+
+                if (padre->getIzquierdo() != nullptr){hijo = padre->getIzquierdo();}
+                else{hijo = padre->getDerecho();}
+
+                // Si no tiene hijo se elimina al padre y se almacenan sus datos
+                if (hijo == nullptr){
+                    hijo = padre;
+                    padre = nullptr;
+
+                    //Eliminar el paciente dentro del nodo
+                    if (hijo->getValue() != nullptr) { delete hijo->getValue(); }
+                    delete hijo;
+                }
+                // Si tiene un hijo se sustituye la información del padre con la de un hijo
+                else {
+                    //Almacenar el hijo
+                    NodeAVL<T>* temporal = hijo;
+
+                    //Pasar la informacion
+                    padre->setValue(temporal->getValue());
+                    padre->setIzquierdo(temporal->getIzquierdo());
+                    padre->setDerecho(temporal->getDerecho());
+                    padre->setAltura(temporal->getAltura());
+
+                    //Se libera el nodo que quedó
+                    delete temporal;
+                }
+
+            }
+            else {
+
+                //Guardar el menor del hijo derecho
+                NodeAVL<T>* hijo = getMenor(padre->getDerecho());
+
+                //Guardar el paciente del nodo que vamos a eliminar
+                Paciente* pacienteABorrar = padre->getValue();
+
+                //Intercambiamos el valor de los pacientes del padre y del hijo
+                padre->setValue(hijo->getValue());
+                hijo->setValue(pacienteABorrar);
+
+                //Eliminamos
+                padre->setDerecho(eliminarElemento(padre->getDerecho(), hijo->getValue()->getId()));
+
+            }
+        }
+
+        //Si el padre esta vacio terminamos
+        if (padre == nullptr) return nullptr;
+
+        //Revisar que te balanceado y si no arreglar
+
+        int altura = 1 + max(getAltura(padre->getIzquierdo()), getAltura(padre->getDerecho()));
+        padre->setAltura(altura);
+
+        int balance = getBalance(padre);
+
+        if (balance > 1) {
+            if (getBalance(padre->getIzquierdo()) >= 0) { return LL(padre);}
+            return LR(padre);
+        }
+
+        if (balance < -1) {
+            if (getBalance(padre->getDerecho()) <= 0) {return RR(padre);}
+            return RL(padre);
+        }
+
+        return padre;
+
+    }
+
+
 //Metodos
 public:
 
@@ -267,6 +372,11 @@ public:
         calcPostOrden(this->raiz, orden);
 
         return orden;
+    }
+
+    //Metodo para eliminar un elemento
+    void eliminar(int numero) {
+        this->raiz = eliminarElemento(this->raiz, numero);
     }
 
     //Destructor

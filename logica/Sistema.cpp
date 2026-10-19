@@ -427,18 +427,22 @@ string Sistema :: entregarServiciosPacientes() {
 }
 
 //Metodo para eliminar el arbol de decisión de forma segura
-void Sistema :: EliminarADesicion(NodeArbol<string>* nodo) {
-
-    //Si ra vacio no hacemos nada
+void Sistema::EliminarADesicion(NodeArbol<string>* nodo) {
     if (nodo == nullptr) return;
 
-    //Recorrer hasta llegar al fondo
-    EliminarADesicion(nodo->getIzquierdo());
-    EliminarADesicion(nodo->getDerecho());
+    //solo si existe lo elimina
+    if (nodo->getIzquierdo() != nullptr) {
+        EliminarADesicion(nodo->getIzquierdo());
+        nodo->setIzquierda(nullptr);
+    }
 
-    //Eliminar el nodo padre
+    //solo si existe lo elimina
+    if (nodo->getDerecho() != nullptr) {
+        EliminarADesicion(nodo->getDerecho());
+        nodo->setDerecha(nullptr);
+    }
+
     delete nodo;
-
 }
 
 //Destructor
