@@ -68,7 +68,7 @@ ID;Nombre;Edad;Temperatura;PresionArterial;Dolor;TipoDolor;Trauma;SintomasNeurol
 ```
 ### Desglose de los Campos:
 
-* **ID:** Código alfanumérico único identificador del paciente. `(ej: `001`)`
+* **ID:** Código único identificador del paciente. `(ej: `001`)`
 * **Nombre:** Nombre y apellido del usuario.  `(ej: Damian Valdivia)`
 * **Edad:** Valor numérico entero que representa la edad en años. `(ej: 20)`
 * **Temperatura:** Valor de la temperatura corporal. `(ej: 37.2)`
@@ -97,7 +97,7 @@ El módulo de carga de datos en `Sistema.cpp` somete a cada línea del archivo `
 ### 2. Validaciones de Tipos de Datos y Rangos (Robustez Clínica)
 * **Control de Excepciones de Conversión (`try-catch`):** Las conversiones de texto a numérico (`std::stoi` para enteros y `std::stod` para Doubles) están protegidas en bloques de código seguros. Si un campo numérico contiene texto corrupto (ej: letras en la edad o temperatura), el error es capturado.
 * **Consistencia de Rango de Datos:**
-    * El **ID**, **Edad**, **Temperatura**, **PresionArterial** y **DiasHospitalizacion** deben ser estrictamente positivos.
+    * El **ID**, **Edad**, **Temperatura**, **PresionArterial** y **DiasHospitalizacion** deben ser estrictamente positivos o cero.
     * La escala de **Dolor** se restringe estrictamente al rango de `0` a `10`.
     * Los campos binarios (**Trauma**, **SintomasNeurologicos**, **RequiereCirugia**) solo aceptan los valores `0` o `1`.
     * El **TipoDolor** se valida contra las cadenas permitidas (`pecho`, `cabeza`, `abdomen`, `extremidad`, `otro`).
@@ -107,7 +107,7 @@ El módulo de carga de datos en `Sistema.cpp` somete a cada línea del archivo `
 
 ### 4. Política ante Datos Inválidos o Fallos Clínicos
 * **Archivo Inexistente:** Si el archivo físico `Pacientes.txt` no es detectado en la raíz por el flujo `std::ifstream`, el programa despliega un mensaje aclaratorio en la interfaz de consola y detiene de forma controlada la carga de datos para evitar un puntero nulo.
-* **Estrategia de Rescate ante Fichas Corruptas:** Si una línea supera las pruebas de formato pero contiene un dato clínico fuera de rango o corrupto, el motor sistema no detiene el programa; en su lugar, captura el caso límite y asigna al paciente de forma segura al servicio general por defecto (**Medicina General**) para garantizar su atención y proteger el flujo del software.
+* **Estrategia de Rescate ante Fichas Corruptas:** La línea se descarta y se continúa con la siguiente.
 
 ## Definición del servicio del Paciente
 
@@ -177,9 +177,9 @@ Archivo --> Cola --(Acción del Usuario)--> Árbol de decisión --> Servicio →
 ```text
 === HOSPITAL MARMAJA ===
 
-1. Atender pacientes
-2. Ver departamento
-3. Revisar historial de atencion
+1. Atender paciente
+2. Ver departamentos
+3. Buscar Paciente
 4. Salir
    Seleccionar opcion:
 ```
@@ -189,17 +189,22 @@ Archivo --> Cola --(Acción del Usuario)--> Árbol de decisión --> Servicio →
 * **Opción 1: Atender pacientes (Clasificación e Inserción AVL)**
     * **Datos solicitados:** Solicita al usuario ingresar el número de pacientes que desee atender.
     * **Operación:** El sistema toma los datos clínicos y constantes vitales del paciente (Edad, Trauma, Síntomas Neurológicos, Tipo de Dolor, Temperatura, Días de Hospitalización, etc.).
-    * **Flujo del Árbol:** Estos parámetros pasan por un árbol de decisión jerárquico que evalúa de forma consecutiva múltiples condicionales (ej. `Edad >= 14 -> Trauma == 0 -> ...`). Al finalizar la ruta, se le asigna automáticamente un servicio médico específico y el paciente es **insertado de manera balanceada en el Árbol AVL** del departamento correspondiente.
+    * **Flujo del Árbol:** Estos parámetros pasan por un árbol de decisión jerárquico que evalúa de forma consecutiva múltiples condicionales (ej. `Edad >= 15 -> Trauma == 0 -> ...`). Al finalizar la ruta, se le asigna automáticamente un servicio médico específico y el paciente es **insertado de manera balanceada en el Árbol AVL** del departamento correspondiente.
 
-* **Opción 2: Ver Departamentos (Procesamiento de nodos con dos hijos en el recorrido InOrden)**
-    * **Datos solicitados:** Ninguno.
-    * **Operación:** El sistema ejecuta un bucle para recorrer cada servicio y solicita a los árboles AVL su reporte en formato InOrden. Al procesar internamente los nodos con dos hijos, la función recursiva desciende primero por el subárbol izquierdo por completo, luego procesa el nodo actual (raíz local), y finalmente se desplaza hacia el subárbol derecho.
-    * **Flujo del Árbol:** Al activar la opción 2, el recorrido procesa de manera simétrica las bifurcaciones de los nodos que poseen ambos hijos. Esto garantiza que toda la rama izquierda (valores menores) se concatene en el texto antes de la raíz del nodo, y toda la rama derecha (valores mayores) después, entregando en pantalla la lista de pacientes perfectamente ordenada de manera secuencial por su identificador.
+* **Opción 2: Ver Departamentos (Recorridos de los AVL)**
+    * **Datos solicitados:** Solicita elegir el orden en que se mostrarán los pacientes: `1.- InOrden`, `2.- PreOrden` o `3.- PostOrden`. Cualquier otra respuesta informa "Opción inválida" y vuelve al menú.
+    * **Operación:** El sistema recorre los 8 servicios y le pide a cada árbol AVL su reporte en el orden elegido.
+    * **Flujo del Árbol:**
+        * **InOrden:** recorre el subárbol izquierdo, luego el nodo actual y luego el derecho. Entrega los pacientes ordenados de menor a mayor ID.
+        * **PreOrden:** procesa primero el nodo actual, luego el subárbol izquierdo y luego el derecho. Permite ver la raíz y la forma en que quedó el árbol.
+        * **PostOrden:** recorre los subárboles izquierdo y derecho y procesa el nodo actual al final.
 
-* **Opción 3: Buscar paciente (Búsqueda Eficiente en AVL)**
-    * **Datos solicitados:** Solicita al usuario ingresar el ID o el Nombre del paciente que se desea localizar en el sistema.
-    * **Operación:** Realiza un procedimiento de búsqueda a lo largo de las estructuras. Si el paciente es hallado, se imprimen en pantalla todos sus datos de admisión y diagnóstico clínico recopilados.
-    * **Flujo del Árbol:** Además del reporte clínico, la interfaz muestra de forma explícita la **Ruta de búsqueda**, reflejando el recorrido exacto por los nodos del árbol AVL que pasó hasta dar con el registro.
+* **Opción 3: Buscar paciente (Búsqueda por ID o por Nombre)**
+    * **Datos solicitados:** Solicita ingresar el ID o el nombre completo del paciente (se admiten espacios, por ejemplo `Gaspar Burgos`).
+    * **Operación:** Si el texto ingresado es un número mayor que 0, se busca por **ID**. En cualquier otro caso se busca por **nombre** (la comparación distingue mayúsculas y minúsculas). La búsqueda se hace en los 8 AVL, y si el paciente es hallado se imprimen todos sus datos, el departamento donde está almacenado y la ruta de búsqueda. Si no existe, se informa "Paciente no encontrado".
+    * **Flujo del Árbol:**
+        * **Por ID:** aprovecha el orden del AVL, descartando en cada nodo la mitad del subárbol (complejidad O(log n)). La **Ruta de búsqueda** muestra los IDs de los nodos visitados.
+        * **Por nombre:** como el AVL está ordenado por ID, no se puede descartar ninguna rama, por lo que se recorre el árbol en preorden hasta encontrar el nombre (complejidad O(n)). La **Ruta de búsqueda** muestra los IDs de todos los nodos revisados. Si hay nombres repetidos, se entrega el primero encontrado.
 
 * **Opción 4: Salir (Sale del menu y termina el programa)**
     * **Datos solicitados:** Ninguno.
