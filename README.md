@@ -201,7 +201,11 @@ Archivo --> Cola --(Acción del Usuario)--> Árbol de decisión --> Servicio →
     * **Operación:** Realiza un procedimiento de búsqueda a lo largo de las estructuras. Si el paciente es hallado, se imprimen en pantalla todos sus datos de admisión y diagnóstico clínico recopilados.
     * **Flujo del Árbol:** Además del reporte clínico, la interfaz muestra de forma explícita la **Ruta de búsqueda**, reflejando el recorrido exacto por los nodos del árbol AVL que pasó hasta dar con el registro.
 
-*Rellenar*
+* **Opción 3: Buscar paciente (Búsqueda Eficiente en AVL)**
+    * **Datos solicitados:** Ninguno.
+    * **Operación:** Sale del bucle generado por el menu para luego de eso llamar al destructor del sistema y liberar toda la memoria utilizada.
+    * **Flujo del Árbol:** Se llama al destructor de cada árbol AVL y el arbol de decisión para liberar su memoria.
+
 
 ## Servicios disponibles
 
