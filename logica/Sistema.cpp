@@ -150,6 +150,7 @@ NodeArbol<string>* Sistema :: crearArbolDesicion() {
 
     //Ramas del arbol
     NodeArbol<string>* urgencias = new NodeArbol<string>("Urgencias");
+    NodeArbol<string>* urgencias2 = new NodeArbol<string>("Urgencias");
     NodeArbol<string>* medicinaGeneral = new NodeArbol<string>("Medicina General");
     NodeArbol<string>* cardiología = new NodeArbol<string>("Cardiología");
     NodeArbol<string>* neurología = new NodeArbol<string>("Neurología");
@@ -190,7 +191,7 @@ NodeArbol<string>* Sistema :: crearArbolDesicion() {
     NodeArbol<string>* tipoDeDolor = new NodeArbol<string>("");
     tipoDeDolor->setPregunta("Tipo De Dolor");
     tipoDeDolor->setIzquierda(hospitalización);  // pecho, cabeza, abdomen, extremidad
-    tipoDeDolor->setDerecha(urgencias);  //Otro
+    tipoDeDolor->setDerecha(urgencias2);  //Otro
 
     //Conección de la pregunta trauma
     NodeArbol<string>* trauma = new NodeArbol<string>("");
@@ -325,10 +326,10 @@ string Sistema :: definirServicio(Paciente* paciente, NodeArbol<string>* nodoAct
         if (pregunta == "Tipo De Dolor") {
 
             if (paciente->getTipoDolor() != "otro") {
-                texto+= "Tipo De Dolor = Otro";
+                texto+= "Tipo De Dolor = " + paciente->getTipoDolor();
                 return definirServicio(paciente, nodoActual->getIzquierdo(), texto);
             }
-            texto+= "Tipo De Dolor = " + paciente->getTipoDolor();
+            texto+= "Tipo De Dolor = otro";
             return definirServicio(paciente, nodoActual->getDerecho(), texto);
         }
 
@@ -449,6 +450,15 @@ void Sistema::EliminarADesicion(NodeArbol<string>* nodo) {
 Sistema::~Sistema() {
     //Borrar la cola
     if (this->colaPacientes != nullptr) {
+
+        if (this->colaPacientes->isEmpty() != true) {
+
+            while (this->colaPacientes->isEmpty() != true) {
+                delete this->colaPacientes->front();
+                this->colaPacientes->pop();
+            }
+        }
+
         delete this->colaPacientes;
     }
 
