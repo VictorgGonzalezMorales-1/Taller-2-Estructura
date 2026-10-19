@@ -193,7 +193,7 @@ Archivo --> Cola --(Acción del Usuario)--> Árbol de decisión --> Servicio →
 
 * **Opción 2: Ver Departamentos (Recorridos de los AVL)**
     * **Datos solicitados:** Solicita elegir el orden en que se mostrarán los pacientes: `1.- InOrden`, `2.- PreOrden` o `3.- PostOrden`. Cualquier otra respuesta informa "Opción inválida" y vuelve al menú.
-    * **Operación:** El sistema recorre los 8 servicios y le pide a cada árbol AVL su reporte en el orden elegido.
+    * **Operación:** El sistema recorre los 8 servicios y le pide a cada árbol AVL su reporte en el orden elegido junto a la altura del arbol.
     * **Flujo del Árbol:**
         * **InOrden:** recorre el subárbol izquierdo, luego el nodo actual y luego el derecho. Entrega los pacientes ordenados de menor a mayor ID.
         * **PreOrden:** procesa primero el nodo actual, luego el subárbol izquierdo y luego el derecho. Permite ver la raíz y la forma en que quedó el árbol.
